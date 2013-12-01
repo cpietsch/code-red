@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.land {
+  fill: #222;
+}
+
+.county-boundary {
+  fill: none;
+  stroke: #fff;
+  stroke-width: .5px;
+}
+
+.state-boundary {
+  fill: none;
+  stroke: #fff;
+}
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script>
+
+var width = window.innerWidth,
+    height = 1000;
+
+// var projection = d3.geo.albers()
+//     .scale(500)
+//     .translate([width / 2, height / 2]);
+
+function mercator(coordinates) {
+  //console.log(coordinates)
+  return [
+    coordinates[0] / 360,
+    (-180 / Math.PI * Math.log(Math.tan(Math.PI / 4 + coordinates[1] * Math.PI / 360))) / 360
+  ];
+}
+
+function albersRaw(φ0, φ1) {
+  var sinφ0 = Math.sin(φ0),
+      n = (sinφ0 + Math.sin(φ1)) / 2,
+      C = 1 + sinφ0 * (2 * n - sinφ0),
+      ρ0 = Math.sqrt(C) / n;
+
+  function forward(λ, φ) {
+    var ρ = Math.sqrt(C - 2 * n * Math.sin(φ)) / n;
+    return [
+      ρ * Math.sin(λ *= n),
+      ρ0 - ρ * Math.cos(λ)
+    ];
+  }
+
+  forward.invert = function(x, y) {
+    var ρ0_y = ρ0 - y;
+    return [
+      Math.atan2(x, ρ0_y) / n,
+      d3_asin((C - (x * x + ρ0_y * ρ0_y) * n * n) / (2 * n))
+    ];
+  };
+
+  return forward;
+  };
+
+function albers() {
+  var φ0 = 29.5,
+      φ1 = 45.5,
+      mutate = d3.geo.projectionMutator(albersRaw),
+      projection = mutate(φ0, φ1);
+
+  projection.parallels = function(_) {
+    if (!arguments.length) return [φ0, φ1];
+    return mutate(φ0 = +_[0], φ1 = +_[1]);
+  };
+
+  return projection;
+}
+
+var projection = d3.geo.projection(mercator)
+    // .rotate([96, 0])
+    // .center([-.6, 38.7])
+    // .scale(1070)
+    // .translate([width / 2, height / 2]);
+
+var path = d3.geo.path()
+    .projection(projection);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+d3.json("data/us.json", function(error, us) {
+  svg.insert("path", ".graticule")
+      .datum(topojson.feature(us, us.objects.land))
+      .attr("class", "land")
+      .attr("d", path);
+
+  svg.insert("path", ".graticule")
+      .datum(topojson.mesh(us, us.objects.counties, function(a, b) { return a !== b && !(a.id / 1000 ^ b.id / 1000); }))
+      .attr("class", "county-boundary")
+      .attr("d", path);
+
+  svg.insert("path", ".graticule")
+      .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
+      .attr("class", "state-boundary")
+      .attr("d", path);
+});
+
+d3.select(self.frameElement).style("height", height + "px");
+
+</script>

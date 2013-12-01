@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <title>code red</title>
+    
+  <script type="text/javascript" src="lib/d3.v3.min.js"></script>
+
+  </head>
+  <body>
+    <div id="chart"></div>
+    <script type="text/javascript">
+
+    // ruff sketch der zeigt wie man ne ganze menge auf den canvas per d3 malen kann
+
+    var width = 960,
+        height = 2000;
+
+    var canvas = d3.select("body").append("canvas")
+        .attr("width", width)
+        .attr("height", height);
+
+
+      d3.tsv("data/codered-july.table_FILTER_de.txt", function(d){
+
+        d.start_time*=1;
+        d.end_time  *=1;
+        d.duration = d.end_time- d.start_time;
+
+        return d;
+
+      },function(data){
+        console.log(data[0]);
+
+        var context = canvas.node().getContext("2d");
+
+        var maxTime = d3.max(data, function(d) { return d.start_time; });
+        var minTime = d3.min(data, function(d) { return d.start_time; });
+
+        var scaleDuration = d3.scale.sqrt()
+          .domain([0, d3.max(data, function(d) { return d.duration; })])
+          .range([0, 200]);
+
+        var scaleTime = d3.scale.sqrt()
+          .domain([minTime, maxTime])
+          .range([0, height]);
+
+        context.strokeStyle = "steelblue";
+        context.beginPath();
+
+        data.forEach(function(d){
+          var y = scaleTime(d.start_time);
+          var size = scaleDuration(d.duration);
+
+          context.moveTo(0, y);
+          context.lineTo(size, y);
+        });
+
+        context.stroke();
+
+        console.log(minTime,maxTime);
+      });
+
+      
+    </script>
+  </body>
+</html>
+
+

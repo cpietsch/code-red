@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <title>code red</title>
+    <script type="text/javascript" src="lib/d3.v3.min.js"></script>
+    <style type="text/css">
+      body, html {
+        padding: 0;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="chart"></div>
+    <script type="text/javascript">
+
+    // ruff sketch der zeigt wie man ne ganze menge auf den canvas per d3 malen kann
+
+    var width = window.innerWidth,
+        height = 4000;
+
+    var canvas = d3.select("body").append("canvas")
+        .attr("width", width)
+        .attr("height", height)
+        .on('mousedown',function(e){
+          console.log(d3.event)
+        });
+
+
+      //d3.tsv("data/codered-july.table_FILTER_de.txt", function(d){
+      d3.tsv("data/codered-july.table_FILTER_us.txt", function(d){
+
+        d.start_time*=1;
+        d.end_time  *=1;
+        d.duration = d.end_time- d.start_time;
+        d.latitude  *=1;
+        d.longitude  *=1;
+
+        //d.geo = d.latitude + d.longitude;
+        d.geo = d.longitude;
+
+        if(d.geo!=0){
+          return d;
+        }
+
+      },function(data){
+        console.log(data[0],data.length);
+        console.log(d3.max(data, function(d) { return d.geo; }));
+
+        var context = canvas.node().getContext("2d");
+
+        var scaleDuration = d3.scale.sqrt()
+          .domain([0, d3.max(data, function(d) { return d.duration; })])
+          .range([0, 3]);
+
+        var time = {};
+        time.max = d3.max(data, function(d) { return d.start_time; });
+        time.min = d3.min(data, function(d) { return d.start_time; });
+        time.scale = scaleTime = d3.scale.linear()
+          .domain([time.min, time.max])
+          .range([0, height]);
+
+        var geo = {};
+        geo.min = d3.min(data, function(d) { return d.geo; });
+        geo.max = d3.max(data, function(d) { return d.geo; });
+        geo.scale = d3.scale.sqrt()
+          .domain([ geo.min, geo.max ])
+          .range([0,width]);
+
+        context.fillStyle = "black";
+        context.rect(0, 0, width, height);
+        context.fill();
+
+        context.fillStyle = "rgba(200,255,255,.1)";
+        
+        data.forEach(function(d){
+          var y = time.scale(d.start_time);
+          var x = geo.scale(d.geo);
+          var size = scaleDuration(d.duration);
+          context.beginPath();
+          context.moveTo(x, y);
+          context.arc(x, y, size, 0, 2 * Math.PI);
+          context.fill();
+        });
+
+      });
+
+      
+    </script>
+  </body>
+</html>
+
+

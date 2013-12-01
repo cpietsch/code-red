@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>codered three</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				background-color: #000000;
+				margin: 0px;
+				overflow: hidden;
+				font-family:Monospace;
+				font-size:13px;
+				text-align:center;
+				font-weight: bold;
+				text-align:center;
+			}
+
+			a {
+				color:#0078ff;
+			}
+
+			#info {
+				color: #fff;
+				position: absolute;
+				top: 0px; width: 100%;
+				padding: 5px;
+				z-index: 100;
+			}
+
+		</style>
+	</head>
+	<body>
+
+		<div id="info">
+		CODE RED THREE.JS
+		</div>
+
+		<script type="x-shader/x-vertex" id="vertexshader">
+
+		    attribute float alpha;
+		    varying float vAlpha;
+
+		   	attribute vec3 color;
+		    varying vec3 vColor;
+
+
+		    void main() {
+
+		        vAlpha = alpha;
+		        vColor = color;
+
+		        vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+
+		        //gl_PointSize = 1.0;
+		        gl_PointSize = 1.0 * ( 500.0 / length( mvPosition.xyz ) );
+
+		        gl_Position = projectionMatrix * mvPosition;
+
+		    }
+
+		</script>
+
+		<script type="x-shader/x-fragment" id="fragmentshader">
+
+		    uniform vec3 color;
+
+		    varying float vAlpha;
+		    varying vec3 vColor;
+
+		    void main() {
+
+		        gl_FragColor = vec4(vColor, 1);
+		        gl_FragColor.a *= vAlpha;
+
+		    }
+
+		</script>
+
+		<script src="lib/three.min.js"></script>
+		<script src="lib/three/Detector.js"></script>
+		<script src="lib/three/libs/stats.min.js"></script>
+	    <script type="text/javascript" src="lib/d3.v3.min.js"></script>
+
+		<script>
+
+	
+
+			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+
+			var container, stats;
+			var camera, scene, renderer, particles, geometry, particleMaterial, parameters, i, h, color;
+			var uniforms, attributes;
+			var mouseX = 0, mouseY = 0;
+			var fov = 70;
+			var targetRotation = 0;
+			var targetRotationOnMouseDown = 0;
+			var mouseYOnMouseDown = 0;
+
+			var windowHalfX = window.innerWidth / 2;
+			var windowHalfY = window.innerHeight / 2;
+
+			var width = 1000,
+			    height = 2000;
+
+			var time = {};
+			var lat = {};
+			var lon = {};
+
+			var scale;
+			var data;
+
+			var c = console;
+
+			d3.tsv("data/codered-july.table.txt", function(d){
+			//d3.tsv("data/codered-july.table_FILTER_us.txt", function(d){
+
+			  d.start_time*=1;
+			  d.end_time  *=1;
+			  d.duration = d.end_time- d.start_time;
+			  d.latitude  *=1;
+			  d.longitude  *=1;
+			  d.date = new Date(d.start_time*1000);
+
+			  //d.geo = d.latitude + d.longitude;
+			  d.geo = d.longitude;
+
+			  if(d.geo!=0){
+			    return d;
+			  }
+
+			},function(d){
+
+			  data = d;
+			 
+			  init();
+			  animate();
+
+			});
+
+			var colors, colorScale;
+
+			function init() {
+
+				time.max = d3.max(data, function(d) { return d.start_time; });
+				time.min = d3.min(data, function(d) { return d.start_time; });
+				time.scale = scaleTime = d3.scale.linear()
+				  .domain([time.min, time.max])
+				  .range([0, 1000]);
+
+				lat.min = d3.min(data, function(d) { return d.latitude; });
+				lat.max = d3.max(data, function(d) { return d.latitude; });
+				lat.scale = d3.scale.linear()
+				  .domain([ lat.min, lat.max ])
+				  .range([0,1000]);
+				  
+				lon.min = d3.min(data, function(d) { return d.longitude; });
+				lon.max = d3.max(data, function(d) { return d.longitude; });
+				lon.scale = d3.scale.linear()
+				  .domain([ lon.min, lon.max ])
+				  .range([0,1000]);
+
+				scale = d3.scale.linear()
+				  .domain([0, d3.max(data, function(d) { return d.duration; })])
+				  .range([0, -1000]);
+
+				colors = d3.nest()
+           			.key(function(d) { return d.country; })
+            		.map(data, d3.map)
+            		.keys()
+            		.map(function(d){
+            			//d =* 1;
+            			//return d*1;
+            			return d;
+            		})
+            	colorScale = d3.scale.ordinal()
+          			.domain(colors)
+          			.range(d3.scale.category20b().range());
+
+            	//c.log(colors);
+
+				container = document.createElement( 'div' );
+				document.body.appendChild( container );
+
+				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 3000 );
+				//camera = new THREE.OrthographicCamera( window.innerWidth / - 2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / - 2, 1, 1000 );
+				camera.position.z = 1000;
+
+				// attributes
+			    attributes = {
+
+			        alpha: { type: 'f', value: [] },
+			        color: { type: 'c', value: [] }
+
+			    };
+
+			    // uniforms
+			    uniforms = {
+
+			        color: { type: "c", value: new THREE.Color( 0xffff00 ) },
+
+			    };
+
+			    // particle system material
+			    var shaderMaterial = new THREE.ShaderMaterial( {
+
+			        uniforms:       uniforms,
+			        attributes:     attributes,
+			        vertexShader:   document.getElementById( 'vertexshader' ).textContent,
+			        fragmentShader: document.getElementById( 'fragmentshader' ).textContent,
+			        transparent: true
+
+			    });
+
+				scene = new THREE.Scene();
+				//scene.fog = new THREE.FogExp2( 0x000000, 0.0007 );
+
+				geometry = new THREE.Geometry();
+
+
+				data.forEach(function(d,i){
+
+				  var vertex = new THREE.Vector3();
+				  vertex.z = lon.scale(d.longitude) - 1000/2;
+				  vertex.x = time.scale(d.start_time) - 1000/2;
+				  vertex.y = lat.scale(d.latitude);
+
+				  geometry.vertices.push( vertex );
+
+				  attributes.alpha.value[ i ] = 0.8;
+				  attributes.color.value[ i ] = new THREE.Color( colorScale(d.country) );
+
+
+
+				});
+
+	
+				particles = new THREE.ParticleSystem( geometry, shaderMaterial );
+
+				scene.add( particles );
+				
+
+				renderer = new THREE.WebGLRenderer({ antialias: true });
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				container.appendChild( renderer.domElement );
+
+				stats = new Stats();
+				stats.domElement.style.position = 'absolute';
+				stats.domElement.style.top = '0px';
+				container.appendChild( stats.domElement );
+
+				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+				document.addEventListener( 'DOMMouseScroll', onDocumentMouseWheel, false);
+				document.addEventListener( 'mousewheel', onDocumentMouseWheel, false );
+				document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+
+
+			}
+
+
+			function onDocumentMouseMove( event ) {
+
+				//mouseX = event.clientX - windowHalfX;
+				//mouseY = event.clientY - windowHalfY;
+
+			}
+
+			function onDocumentMouseWheel( event ) {
+
+				// WebKit
+				if ( event.wheelDeltaY ) {
+					fov -= event.wheelDeltaY * 0.05;
+				// Opera / Explorer 9
+				} else if ( event.wheelDelta ) {
+					fov -= event.wheelDelta * 0.05;
+				// Firefox
+				} else if ( event.detail ) {
+					fov += event.detail * 1.0;
+				}
+				camera.position.z = fov;
+				//camera.projectionMatrix.makePerspective( fov, window.innerWidth / window.innerHeight, 1, 1100);
+			}
+
+			function onDocumentMouseDown( event ) {
+
+				event.preventDefault();
+
+				document.addEventListener( 'mousemove', onDocumentMouseMove2, false );
+				document.addEventListener( 'mouseup', onDocumentMouseUp, false );
+				document.addEventListener( 'mouseout', onDocumentMouseOut, false );
+
+				mouseYOnMouseDown = event.clientX - windowHalfX;
+				targetRotationOnMouseDown = targetRotation;
+
+			}
+
+			function onDocumentMouseMove2( event ) {
+
+				mouseX = event.clientX - windowHalfX;
+				mouseY = event.clientY - windowHalfY;
+
+				targetRotation = targetRotationOnMouseDown + ( mouseX - mouseYOnMouseDown ) * 0.02;
+
+			}
+
+			function onDocumentMouseUp( event ) {
+
+				document.removeEventListener( 'mousemove', onDocumentMouseMove2, false );
+				document.removeEventListener( 'mouseup', onDocumentMouseUp, false );
+				document.removeEventListener( 'mouseout', onDocumentMouseOut, false );
+
+			}
+
+			function onDocumentMouseOut( event ) {
+
+				document.removeEventListener( 'mousemove', onDocumentMouseMove2, false );
+				document.removeEventListener( 'mouseup', onDocumentMouseUp, false );
+				document.removeEventListener( 'mouseout', onDocumentMouseOut, false );
+
+			}
+
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+				render();
+				stats.update();
+
+			}
+
+			function render() {
+
+	
+				//camera.position.x += ( mouseX - camera.position.x ) * 0.05;
+				//camera.position.y += ( - mouseY - camera.position.y ) * 0.05;
+
+				particles.rotation.y += ( targetRotation - particles.rotation.y ) * 0.05;
+
+				//camera.lookAt( scene.position );
+				
+				renderer.render( scene, camera );
+
+			}
+
+
+		</script>
+	</body>
+</html>

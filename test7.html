@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <title>code red</title>
+    
+    <script type="text/javascript" src="lib/d3.v3.min.js"></script>
+    
+    <link href='http://api.tiles.mapbox.com/mapbox.js/v1.0.3/mapbox.css' rel='stylesheet' />
+      <!--[if lte IE 8]>
+        <link href='http://api.tiles.mapbox.com/mapbox.js/v1.0.3/mapbox.ie.css' rel='stylesheet' />
+      <![endif]-->
+      <script src='http://api.tiles.mapbox.com/mapbox.js/v1.0.3/mapbox.js'></script>
+      <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+    <style type="text/css">
+      body, html {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+      canvas, svg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index:1;
+      }
+      svg {
+        font: 10px sans-serif;
+        cursor: none;
+      }
+      svg .axis {
+        fill:#FFF;
+        opacity: 0.6;
+      }
+      svg .axis line {
+        fill: none;
+        stroke: #FFF;
+        stroke-width:1;
+        opacity: 1;
+      }
+      svg .axis path {
+        display: none;
+      }
+      svg .back {
+        fill: none;
+        stroke: #D7FCFF;
+        stroke-width: 20;
+        opacity: 0.07;
+      }
+      svg .line {
+        fill: none;
+        stroke: #D7FCFF;
+        stroke-width: 1;
+        opacity: 0.4;
+      }
+      svg .label {
+        fill:#FFF;
+      }
+      #chart {
+
+      }
+      #geoAxis {
+        position: fixed;
+        z-index: 200;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="geoAxis"></div>
+    <div id="chart"></div>
+   
+    <script type="text/javascript">
+
+    // tools
+
+    var getReverseGeocodingData = function(lat, lng, callback) {
+        var latlng = new google.maps.LatLng(lat, lng);
+        // This is making the Geocode request
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+            if (status !== google.maps.GeocoderStatus.OK) {
+                console.log(status);
+                setTimeout(function(){
+                  geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+                    callback(results,status);
+                  });
+                },2000);
+            }
+            // This is checking to see if the Geoeode Status is OK before proceeding
+            if (status == google.maps.GeocoderStatus.OK) {
+                //console.log(results);
+                //var address = (results[0].formatted_address);
+                callback(results,status);
+            }
+        });
+    }
+
+    var asyncLoop = function(o){
+        var i=-1;
+
+        var loop = function(){
+            i++;
+            if(i==o.length){o.callback(); return;}
+            o.functionToLoop(loop, i);
+        } 
+        loop();//init
+    }
+
+    var c = console;
+
+    // code
+
+    var width = window.innerWidth,
+        height = 2000;
+
+    var canvas = d3.select("#chart").append("canvas")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("class","mask")
+
+
+    var svg = d3.select("#chart")
+                .append("svg:svg")
+                .attr("width", width)
+                .attr("height", height);
+
+    var svgGeoAxis= d3.select("#geoAxis")
+                .append("svg:svg")
+                .attr("width", width)
+                .attr("height",200);
+ 
+    var dateCursor = svg.append("g").attr("class","dateCursor");
+
+    dateCursor.append('line')
+        .attr("class","back")
+        .attr("x1", 0)
+        .attr("x2", width)
+        .attr("y1", 0)
+        .attr("y2", 0);
+
+    dateCursor.append('line')
+        .attr("class","line")
+        .attr("x1", 55)
+        .attr("x2", width)
+        .attr("y1", 0)
+        .attr("y2", 0);
+
+    dateCursor.append("text")
+      .attr("class", "label")
+      .attr("x", 50)
+      .attr("y",3)
+      .style("text-anchor", "end")
+      .text("now");
+
+    var geoCursor = svg.append("g").attr("class","geoCursor");
+
+    geoCursor.append('line')
+        .attr("class","line")
+        .attr("x1", 0)
+        .attr("x2", 0)
+        .attr("y1", 0)
+        .attr("y2", height);
+
+    geoCursor.append('line')
+        .attr("class","back")
+        .attr("x1", 0)
+        .attr("x2", 0)
+        .attr("y1", 0)
+        .attr("y2", height);
+
+    var dateFormat = d3.time.format("%H:%M:%S");
+
+    var firstObj = function(obj) {
+      for (var a in obj) return obj[a];
+    }
+      
+
+      //d3.tsv("data/codered-july.table.txt", function(d){
+      d3.tsv("data/codered-july.table_FILTER_de.txt", function(d){
+      //d3.tsv("data/codered-july.table_FILTER_us.txt", function(d){
+
+        d.start_time*=1;
+        d.end_time  *=1;
+        d.duration = d.end_time- d.start_time;
+        //d.start_time = d.end_time;
+        d.latitude  *=1;
+        d.longitude  *=1;
+        d.date = new Date(d.start_time*1000);
+
+        d.multi = d.latitude * d.longitude;
+        // if(d.multi==0){
+        //   d.latitude = 7;
+        //   d.longitude = 7;
+        //   d.multi = 
+        // }       
+        // return d; 
+        if(d.multi!=0){
+          return d;
+        }
+        
+      },function(data){
+
+        //data.sort(function(a,b){ return a.start_time-b.start_time; });
+        console.log(data[0],data.length);
+
+        var nested_data = d3.nest()
+        .key(function(d) { return d.longitude; }).sortKeys(d3.ascending)
+        .key(function(d) { return d.latitude; })
+        .entries(data);
+        //.map(data, d3.map);
+
+        nested_data.forEach(function(elem){
+          elem.values.sort(function(a, b){
+            return b.length - a.length;
+          });
+        });
+        nested_data.sort(function(a, b){
+            return b.values[0].values.length - a.values[0].values.length;
+        });
+
+        console.log("nested sorted",nested_data);
+        
+        var nested_data_top = nested_data.splice(0,3);
+
+        var geoTicksNames = {};
+        asyncLoop({
+            length : nested_data_top.length,
+            functionToLoop : function(next, i){
+
+                var elem = nested_data_top[i];
+                var lon = elem.key;
+                var lat = elem.values[0].key;
+                getReverseGeocodingData(lat,lon,function(results,status){
+                  var name = "";
+                  if (status !="ZERO_RESULTS"){
+                    name = results[1].address_components[1].long_name;
+                  } 
+                  c.log(results);
+                  geoTicksNames[geo.axis.key(lat,lon)] = { lon: lon, lat: lat, name: name};
+                  next();
+                });
+               
+            },
+            callback : function(){
+               //geo.axis.makeAxis();
+            }    
+        });
+
+        //WebGL2D.enable(canvas.node());
+        var context = canvas.node().getContext("2d");
+
+        var scaleDuration = d3.scale.linear()
+          .domain([0, d3.max(data, function(d) { return d.duration; })])
+          .range([1, 30]);
+
+        var scaleDurationColor = d3.scale.sqrt()
+          .domain([0, d3.max(data, function(d) { return d.duration; })])
+          .range(["green", "blue", "yellow", "blue"]);
+
+        console.log("color",d3.rgb(scaleDurationColor(data[0].duration)));
+
+        var time = {};
+        time.max = d3.max(data, function(d) { return d.date; });
+        time.min = d3.min(data, function(d) { return d.date; });
+        time.scale = d3.time.scale()
+          .domain([time.min, time.max])
+          .range([0, height]);
+        console.log("time",time);
+
+        var geo = {};
+        geo.lat = {};
+        geo.lat.min = d3.min(data, function(d) { return d.latitude; });
+        geo.lat.max = d3.max(data, function(d) { return d.latitude; });
+        geo.lat.scale = d3.scale.sqrt()
+          .domain([ geo.lat.min, geo.lat.max ])
+          .range([0,width]);
+
+        geo.lon = {};
+        geo.lon.min = d3.min(data, function(d) { return d.longitude; });
+        geo.lon.max = d3.max(data, function(d) { return d.longitude; });
+        geo.lon.scale = d3.scale.sqrt()
+          .domain([ geo.lon.min, geo.lon.max ])
+          .range([0,width]);
+
+        geo.multi = {};
+        geo.multi.min = d3.min(data, function(d) { return d.multi; });
+        geo.multi.max = d3.max(data, function(d) { return d.multi; });
+        geo.multi.scale = d3.scale.sqrt()
+          .domain([ geo.multi.min, geo.multi.max ])
+          .range([0,width]);
+
+        geo.axis = {};
+        geo.axis.scale = geo.lon.scale;
+        geo.axis.value = function(d){ return d.longitude };
+        geo.axis.key = function(lat,lon){ return lon; }
+
+        var trace = {};
+        var pushTrace = function(x,y,d){
+          if(!trace[x]) trace[x] = {};
+          if(!trace[x][y]) trace[x][y] = d;
+        };
+
+        var yAxis = d3.svg.axis()
+                    .orient("left")
+                    .scale(time.scale)
+                    .tickSize(40)
+                    .tickPadding(5)
+                    .ticks(d3.time.minutes, 60)
+                    .tickFormat(d3.time.format("%H:%M:%S"));
+                    //.tickSubdivide(true);
+
+        svg.append("g")
+          .attr("transform", "translate("+(95)+",0)")
+          .attr("class","axis")
+          .call(yAxis)
+
+        
+        geo.axis.makeAxis = function(){
+          var geoTicks = d3.keys(geoTicksNames);
+          c.log("axis",geoTicks,geoTicksNames);
+
+          var xAxis = d3.svg.axis()
+                    .orient("top")
+                    .scale(geo.axis.scale)
+                    .tickSize(20)
+                    .tickPadding(5)
+                    .tickValues(geoTicks)
+                    .tickFormat(function(d) { return geoTicksNames[d].name; })
+                    //.tickFormat(d3.format("d"))
+                    .ticks(20)
+                   // .tickFormat(d3.time.format("%H:%M:%S"));
+                    //.tickSubdivide(true);
+
+        svgGeoAxis.append("g")
+          .attr("transform", "translate(0,100)")
+          .attr("class","axis")
+          .call(xAxis)
+          .selectAll("text")  
+               .style("text-anchor", "start")
+               .attr("dx", "20")
+               .attr("dy", "10")
+               .attr("transform", function(d) {
+                   return "rotate(-45)" 
+               });
+        }
+
+        svg.on('mousemove',function(e){
+          var mouse =  d3.mouse(this);
+          var pos = geo.lon.scale.invert(mouse[0]);
+          var now = time.scale.invert(mouse[1]);
+
+          dateCursor
+            .attr("transform", "translate(0,"+mouse[1]+")")
+            .select(".label")
+            .text(dateFormat(now));
+
+          geoCursor
+            .attr("transform", "translate("+mouse[0]+",0)")
+          //console.log(mouse,time,geo);
+
+        });
+
+        svg.on('mousedown',function(e){
+          var mouse =  d3.mouse(this);
+          var lon = geo.lon.scale.invert(mouse[0]);
+          var now = time.scale.invert(mouse[1]);
+
+          //console.log(lon,now);
+
+          var data = nested_data.filter(function(elem) {
+            var range = 0.01;
+            return ((elem.key*1-range) < lon && lon < (elem.key*1+range));
+          });
+
+          //console.log(data)
+          if(data.length>0){
+            var lat = data[0].key;
+            console.log(lat,lon);
+          }
+
+         });
+
+        //context.fillStyle = "black";
+        context.rect(0, 0, width, height);
+        context.fill();
+       
+        data.forEach(function(d){
+          var y = parseInt(time.scale(d.date));
+          var x = parseInt(geo.axis.scale(geo.axis.value(d)));
+          var size = scaleDuration(d.duration);
+          var color = d3.rgb(scaleDurationColor(d.duration));
+
+          //console.log(d.duration)
+
+          context.beginPath();
+          context.moveTo(x, y);
+          context.strokeStyle = "rgba("+color.r+","+color.g+","+color.b+",.6)";
+          context.lineTo(x+1, y+1);
+          context.stroke();
+
+          pushTrace(x,y,d);
+
+        });
+        //console.log(trace);
+        
+        var saveCanvas = function(){
+          window.location.href=canvas.node()
+          .toDataURL("image/png")
+          .replace("image/png", "image/octet-stream");
+        }
+      });
+
+      
+    </script>
+  </body>
+</html>
+
+

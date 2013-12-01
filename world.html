@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <title>code red</title>
+    
+    <script type="text/javascript" src="lib/d3.v3.min.js"></script>
+    <script type="text/javascript" src="lib/queue.js"></script>
+
+
+      <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+    <style type="text/css">
+      body, html {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+      canvas, svg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index:1;
+      }
+      svg {
+        font: 10px sans-serif;
+        cursor: none;
+      }
+      svg .axis {
+        fill:#FFF;
+        opacity: 0.6;
+      }
+      svg .axis line {
+        fill: none;
+        stroke: #FFF;
+        stroke-width:1;
+        opacity: 1;
+      }
+      svg .axis path {
+        display: none;
+      }
+      svg .back {
+        fill: none;
+        stroke: #D7FCFF;
+        stroke-width: 20;
+        opacity: 0.07;
+      }
+      svg .line {
+        fill: none;
+        stroke: #D7FCFF;
+        stroke-width: 1;
+        opacity: 0.4;
+      }
+      svg .label {
+        fill:#FFF;
+      }
+      #chart {
+
+      }
+      #geoAxis {
+        position: fixed;
+        z-index: 200;
+      }
+      .progress-meter .background {
+        fill: #ccc;
+      }
+
+      .progress-meter .foreground {
+        fill: #000;
+      }
+
+      .progress-meter text {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 24px;
+        font-weight: bold;
+      }
+      #toggleStart {
+        font-size: 12px;
+        padding: 13px;
+        color: #C9C9C9;
+        font-family: sans-serif;
+        position: fixed;
+        z-index: 200;
+        top:5px;
+        left: 5px;
+        background: rgba(82, 82, 82, 0.59);
+        cursor: pointer;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="geoAxis"></div>
+    <div id="chart"></div>
+    <div id="toggleStart">start/end</div>
+   
+    <script type="text/javascript">
+
+    // tools
+    // node verbindungen
+
+    var getReverseGeocodingData = function(lat, lng, callback) {
+        var latlng = new google.maps.LatLng(lat, lng);
+        var geocoder = new google.maps.Geocoder();
+        var getCity = function(results){
+          var out = { city:"unkown", state:"unkown", country:"unkown" };
+          if(results.length>0){
+            var arrAddress = results[0].address_components;
+            arrAddress.forEach(function (address_component) {
+                if (address_component.types[0] == "locality") {
+                  out.city = address_component.long_name;
+                }
+                if (address_component.types[0] == "administrative_area_level_1") {
+                  out.state = address_component.long_name;
+                }
+                if (address_component.types[0] == "country") {
+                  out.country = address_component.long_name;
+                }
+            });
+          }
+          return out;
+        }
+        geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+            if (status !== google.maps.GeocoderStatus.OK) {
+                console.log(status);
+                setTimeout(function(){
+                  geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+                    callback(getCity(results));
+                  });
+                },2000);
+            }
+            if (status == google.maps.GeocoderStatus.OK) {
+                callback(getCity(results));
+            }
+        });
+    }
+    
+
+    var asyncLoop = function(o){
+        var i=-1;
+
+        var loop = function(){
+            i++;
+            if(i==o.length){o.callback(); return;}
+            o.functionToLoop(loop, i);
+        } 
+        loop();//init
+    }
+
+    var c = console;
+
+    // code
+
+
+
+    var width = window.innerWidth,
+        height = 4000;
+
+
+    var twoPi = 2 * Math.PI,
+        progress = 0,
+        total = 26228578, 
+        formatPercent = d3.format(".0%");
+
+    var arc = d3.svg.arc()
+        .startAngle(0)
+        .innerRadius(180)
+        .outerRadius(240);
+
+    var canvas = d3.select("#chart").append("canvas")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("class","mask")
+
+
+    var svg = d3.select("#chart")
+                .append("svg:svg")
+                .attr("width", width)
+                .attr("height", height);
+    svg.on('mousedown',function(e){
+      var mouse =  d3.mouse(this);
+      var lon = geo.lon.scale.invert(mouse[0]);
+      var now = time.scale.invert(mouse[1]);
+
+      //console.log(lon,now);
+
+      var data = nested_data.filter(function(elem) {
+        var range = 0.01;
+        return ((elem.key*1-range) < lon && lon < (elem.key*1+range));
+      });
+
+      //console.log(data)
+      if(data.length>0){
+        var lat = data[0].key;
+        console.log(lat,lon);
+      }
+
+    });
+
+    var meter = svg.append("g")
+        .attr("transform", "translate(" + width / 2 + "," + 400 + ")")
+        .attr("class", "progress-meter");
+
+    meter.append("path")
+        .attr("class", "background")
+        .attr("d", arc.endAngle(twoPi));
+
+    var foreground = meter.append("path")
+        .attr("class", "foreground");
+
+    var text = meter.append("text")
+        .attr("text-anchor", "middle")
+        .attr("dy", ".35em");
+
+    var svgGeoAxis= d3.select("#geoAxis")
+                .append("svg:svg")
+                .attr("width", width)
+                .attr("height",200);
+ 
+    var dateCursor = svg.append("g").attr("class","dateCursor");
+
+    dateCursor.append('line')
+        .attr("class","back")
+        .attr("x1", 0)
+        .attr("x2", width)
+        .attr("y1", 0)
+        .attr("y2", 0);
+
+    dateCursor.append('line')
+        .attr("class","line")
+        .attr("x1", 55)
+        .attr("x2", width)
+        .attr("y1", 0)
+        .attr("y2", 0);
+
+    dateCursor.append("text")
+      .attr("class", "label")
+      .attr("x", 50)
+      .attr("y",3)
+      .style("text-anchor", "end")
+      .text("now");
+
+    var geoCursor = svg.append("g").attr("class","geoCursor");
+
+    geoCursor.append('line')
+        .attr("class","line")
+        .attr("x1", 0)
+        .attr("x2", 0)
+        .attr("y1", 0)
+        .attr("y2", height);
+
+    geoCursor.append('line')
+        .attr("class","back")
+        .attr("x1", 0)
+        .attr("x2", 0)
+        .attr("y1", 0)
+        .attr("y2", height);
+
+    var dateFormat = d3.time.format("%H:%M:%S");
+
+    function tsv(url, callback) { 
+      d3.tsv(url)
+        .on("progress", function() { 
+          console.log("progress", d3.event.loaded);
+          var i = d3.interpolate(progress, d3.event.loaded / total);
+          d3.transition().tween("progress", function() {
+            return function(t) {
+              progress = i(t);
+              foreground.attr("d", arc.endAngle(twoPi * progress));
+              text.text(formatPercent(progress));
+            };
+          });
+        })
+        .get(function(error, data) {
+          
+          meter.transition().delay(250).style("opacity", "0")
+            .each("end", function(){
+              console.log("done")
+              meter.remove();
+              callback(null,data);
+          });
+          
+        });
+    }
+    function csv(url, callback) { 
+      d3.csv(url)
+        .on("progress", function() { console.log("progress", d3.event.loaded); })
+        .get(function(error, data) {
+          callback(null,data);
+        });
+    }
+
+    var draw;
+    var x = {};
+    var time = {};
+    
+    queue()
+      .defer(tsv,"data/codered-july.table.txt")
+      //.defer(tsv,"data/codered-july.table_FILTER_us.txt")
+      .defer(csv,"data/geoLabelsLong.csv")
+      .await(function(error,wormData,geoData){
+
+        wormData.map(function(d){
+          d.start_time*=1;
+          d.end_time  *=1;
+          d.duration = d.end_time- d.start_time;
+          d.lat = d.latitude*1;
+          d.lon = d.longitude*1;
+          d.start_time = new Date(d.start_time*1000);
+          d.end_time = new Date(d.end_time*1000);
+          d.multi = d.lat * d.lon;
+        });
+        
+
+        //data.sort(function(a,b){ return a.start_time-b.start_time; });
+        console.log("ready",geoData[0],geoData.length);
+
+        console.log("ready",wormData[0],wormData.length);
+
+        // FILTER
+        var data = wormData;
+
+        var geoDataMap = d3.nest()
+            .key(function(d) { return d.lon; })
+            .key(function(d) { return d.lat; })
+            .map(geoData, d3.map);
+
+        console.log(geoDataMap);
+
+        var nested_data = d3.nest()
+        .key(function(d) { return d.lon; }).sortKeys(d3.ascending)
+        .key(function(d) { return d.lat; })
+        .entries(data);
+        //.map(data, d3.map);
+
+        // sort the shit out of it
+        nested_data.forEach(function(elem){
+          elem.values.sort(function(a, b){
+            return b.length - a.length;
+          });
+        });
+        nested_data.sort(function(a, b){
+            return b.values[0].values.length - a.values[0].values.length;
+        });
+        c.log("nested sorted",nested_data);
+              
+
+        //WebGL2D.enable(canvas.node());
+        var context = canvas.node().getContext("2d");
+
+        var duration = {};
+        duration.max = d3.max(data, function(d) { return d.duration; });
+        duration.scale = d3.scale.linear()
+          .domain([0, duration.max])
+          .range([1, 30]);
+
+        duration.color = d3.scale.sqrt()
+          .domain([0, duration.max])
+          .range(["green", "blue", "yellow", "blue"]);
+        //c.log("color",d3.rgb(duration.color(data[0].duration)));
+
+       
+        time.key = "start_time";
+        time.min = d3.min(data, function(d) { return d.start_time; });
+        time.max = d3.max(data, function(d) { return d.end_time; });
+        time.scale = d3.time.scale()
+          .domain([time.min, time.max])
+          .range([0, height]);
+
+        var startToggle = d3.select('#toggleStart')
+          .on('mousedown',function(e){
+            if(time.key == "end_time"){
+              time.key = "start_time";
+            } else {
+              time.key = "end_time";
+            }
+            startToggle.html(time.key);
+            draw();
+          })
+          .html(time.key);
+
+        var geo = {};
+        geo.lat = {};
+        geo.lat.min = d3.min(data, function(d) { return d.lat; });
+        geo.lat.max = d3.max(data, function(d) { return d.lat; });
+
+        geo.lon = {};
+        geo.lon.min = d3.min(data, function(d) { return d.lon; });
+        geo.lon.max = d3.max(data, function(d) { return d.lon; });
+
+        // geo.multi = {};
+        // geo.multi.min = d3.min(data, function(d) { return d.multi; });
+        // geo.multi.max = d3.max(data, function(d) { return d.multi; });
+
+        x.key = "lon";
+        //x.value = function(d){ return d[x.key] };
+        x.index = function(lat,lon){ return lon; }
+        x.scale = d3.scale.linear()
+          .domain([ geo[x.key].min, geo[x.key].max ])
+          .range([0,width]);
+
+        x.makeAxis = function(num){
+          var selection = nested_data.splice(0,num);
+          console.log("top",selection);
+
+          var ticks = {};
+          selection.map(function(d){
+            var lon = d.key;
+            var lat = d.values[0].key;
+            var adress = geoDataMap.get(lon).get(lat);
+            if(adress){
+              ticks[lon] = { lat:lat,lon:lon,city:adress[0].city +", "+adress[0].country };
+            }
+            //console.log(geoDataMap.get(lon).get(lat),lon,lat)
+            // var name = geoDataMap[lon][lat][0].city;
+            // ticks[lon] = {name:name};
+          });
+
+
+          var xAxis = d3.svg.axis()
+                    .orient("top")
+                    .scale(x.scale)
+                    .tickSize(20)
+                    .tickPadding(5)
+                    .tickValues(d3.keys(ticks))
+                    .tickFormat(function(d) { return ticks[d].city; })
+
+
+        svgGeoAxis.append("g")
+          .attr("transform", "translate(0,120)")
+          .attr("class","x axis")
+          .call(xAxis)
+          .selectAll("text")  
+               .style("text-anchor", "start")
+               .attr("dx", "20")
+               .attr("dy", "10")
+               .attr("transform", function(d) {
+                   return "rotate(-45)" 
+               });
+        }
+        x.makeAxis(20);
+
+        var y = {};
+        y.scale = time.scale;
+        y.axis = d3.svg.axis()
+                    .orient("left")
+                    .scale(y.scale)
+                    .tickSize(40)
+                    .tickPadding(5)
+                    .ticks(d3.time.minutes, 60)
+                    .tickFormat(d3.time.format("%H:%M:%S"));
+                    //.tickSubdivide(true);
+
+        svg.append("g")
+          .attr("transform", "translate("+(95)+",0)")
+          .attr("class","y axis")
+          .call(y.axis);
+
+        svg.on('mousemove',function(e){
+          var mouse =  d3.mouse(this);
+          var pos = x.scale.invert(mouse[0]);
+          var now = y.scale.invert(mouse[1]);
+
+          dateCursor
+            .attr("transform", "translate(0,"+mouse[1]+")")
+            .select(".label")
+            .text(dateFormat(now));
+
+          geoCursor
+            .attr("transform", "translate("+mouse[0]+",0)")
+          //console.log(mouse,time,geo);
+
+        });
+
+        
+
+        draw = function(){
+          console.log("draw");
+          console.time("draw");
+          context.fillStyle = "black";
+          context.rect(0, 0, width, height);
+          context.fill();
+          
+          data.forEach(function(d){
+            var yy = parseInt(y.scale(d[time.key]));
+            var xx = parseInt(x.scale(d[x.key]));
+            var size = duration.scale(d.duration);
+            var color = d3.rgb(duration.color(d.duration));
+
+            //console.log(d.duration)
+
+            context.beginPath();
+            context.moveTo(xx, yy);
+            context.strokeStyle = "rgba("+color.r+","+color.g+","+color.b+",.6)";
+            context.lineTo(xx+1, yy+1);
+            context.stroke();
+
+          });
+          console.timeEnd("draw")
+        }
+        draw();
+        
+        var saveCanvas = function(){
+          window.location.href=canvas.node()
+          .toDataURL("image/png")
+          .replace("image/png", "image/octet-stream");
+        }
+      });
+
+      
+    </script>
+  </body>
+</html>
+
+

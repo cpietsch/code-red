@@ -1,0 +1,1001 @@
+lat,lon,city,country
+37.53,127,Seoul,South Korea
+37,127.5,Eumseong-gun,South Korea
+35,105,Dingxi,China
+23.5,121,Xinyi Township,Taiwan
+54,-4.5,unkown,unkown
+51.5,10.5,Steinrode,Germany
+52.5,5.75,Dronten,The Netherlands
+37.48,-122.21,Redwood City,United States
+33.98,-118.45,Marina del Rey,United States
+42.83,12.83,Meggiano,Italy
+38.98,-77.39,Herndon,United States
+-35.32,150.4,Croobyar,Australia
+38.94,-77.35,Reston,United States
+25.02,121.37,Guishan Township,Taiwan
+-10,-55,Guaranta do Norte,Brazil
+38.86,-77.26,Fairfax,United States
+36,138,Kamiina District,Japan
+43.7,-79.42,Toronto,Canada
+35.75,139.5,Higashikurume,Japan
+40,-4,Yunclillos,Spain
+62,15,unkown,Sweden
+40.4,-74.11,Middletown Township,United States
+33.93,-84.33,Dunwoody,United States
+46,2,Saint-Sulpice-les-Champs,France
+38,-98,Hutchinson,United States
+42.58,-82.89,Mount Clemens,United States
+33.03,-96.74,Plano,United States
+47.33,13.33,unkown,Austria
+-25,135,Ghan,Australia
+NaN,NaN,unkown,unkown
+31.5,34.75,unkown,Israel
+39.58,-104.9,Centennial,United States
+51.08,-114.08,Calgary,Canada
+23,-102,San Francisco,Mexico
+41.89,-87.62,Chicago,United States
+42.38,-71.13,Cambridge,United States
+47,8,Romoos,Switzerland
+45,-93.26,Columbia Heights,United States
+33.97,-118.25,Los Angeles,United States
+39.75,-104.99,Denver,United States
+33.75,-84.39,Atlanta,United States
+22.25,114.17,Aberdeen,Hong Kong
+39.92,116.43,Beijing,China
+35.08,129.03,Busan,South Korea
+37.32,-121.92,San Jose,United States
+38.93,-77.17,McLean,United States
+60,47,unkown,Russia
+37.76,-121.95,San Ramon,United States
+45.5,-73.6,Montreal,Canada
+34.15,-118.09,Pasadena,United States
+62,10,unkown,Norway
+20,77,Gugal Pimpari,India
+50.83,4,Ninove,Belgium
+39,35,Paşalı,Turkey
+39.5,-8,unkown,Portugal
+45.42,-75.72,Ottawa,Canada
+36.32,127.42,Daejeon,South Korea
+32.79,-96.8,Dallas,United States
+51.5,-0.17,London,United Kingdom
+48.87,2.33,Paris,France
+27.94,-82.38,Tampa,United States
+35,-93,Casa,United States
+29.76,-95.36,Houston,United States
+10.5,-66.92,Caracas,Venezuela
+41.42,2.17,Barcelona,Spain
+45.47,9.2,Milan,Italy
+-34.67,-58.5,Buenos Aires,Argentina
+49.22,-123.1,Vancouver,Canada
+37.78,-122.42,San Francisco,United States
+25.79,-80.32,Miami,United States
+43,-75,Mohawk,United States
+39,22,unkown,Greece
+33.84,-117.95,Anaheim,United States
+31.31,-89.31,Hattiesburg,United States
+37.32,-122.04,Cupertino,United States
+32.72,-117.16,San Diego,United States
+40.76,-73.52,Hicksville,United States
+42.36,-71.07,Boston,United States
+1.37,103.8,unkown,Singapore
+47.62,-122.34,Seattle,United States
+42.9,-78.88,Buffalo,United States
+39.11,-84.5,Cincinnati,United States
+53.57,-113.42,Edmonton,Canada
+37.47,126.63,Incheon,South Korea
+40.82,-73.47,Woodbury,United States
+55.75,37.7,Moscow,Russia
+39.88,-105.1,Westminster,United States
+35.12,126.87,Gwangju,South Korea
+59.33,18.08,Stockholm,Sweden
+40.73,-74,New York,United States
+40.37,-74.64,Princeton,United States
+33.45,-112.08,Phoenix,United States
+-34,-64,unkown,Argentina
+15,100,Hankha,Thailand
+42.65,-71.16,Andover,United States
+48.22,16.37,Vienna,Austria
+-30.95,-58.8,unkown,Argentina
+41.78,-78,Coudersport,United States
+32.87,-96.99,Irving,United States
+24.15,120.67,Xi District,Taiwan
+36.17,-86.78,Nashville,United States
+39.98,-105.15,Louisville,United States
+-33.92,151.17,St Peters,Australia
+35.87,128.6,Daegu,South Korea
+32.89,-117.2,San Diego,United States
+42.94,-71.52,Bedford,United States
+31,-92,Cottonport,United States
+4,-72,Puerto Gaitan,Colombia
+38.92,-77.4,Herndon,United States
+28.54,-81.37,Orlando,United States
+38.94,-77.22,McLean,United States
+52.35,4.9,Amsterdam,The Netherlands
+-35.3,149.13,Parkes,Australia
+30.27,-97.74,Austin,United States
+41.32,-72.93,New Haven,United States
+51.52,7.45,Dortmund,Germany
+47.38,8.55,Zurich,Switzerland
+46.25,15.17,Žalec,Slovenia
+32.33,-115.2,unkown,Mexico
+36.18,-115.16,Las Vegas,United States
+41.89,-87.64,Chicago,United States
+37.34,-121.89,San Jose,United States
+-33.45,-70.67,Santiago,Chile
+40.69,-74.02,New York,United States
+2.5,112.5,Sibu,Malaysia
+38.66,-90.46,St. Louis,United States
+34.67,135.5,Osaka,Japan
+59.93,10.75,Oslo,Norway
+-12.05,-77.05,Breña,Peru
+32.79,-96.83,Dallas,United States
+48.13,11.58,Munich,Germany
+40.42,-3.72,Madrid,Spain
+32.97,-96.88,Carrollton,United States
+42.36,-71.05,Boston,United States
+22.6,120.28,Qijin District,Taiwan
+41.5,-100,Anselmo,United States
+33.69,-117.8,Irvine,United States
+29.74,-95.47,Houston,United States
+53.33,-6.25,Dublin,Ireland
+40.83,-76,Tamaqua,United States
+52.53,13.42,Berlin,Germany
+39.73,-105.03,Denver,United States
+49,32,Krymky,Ukraine
+47.5,19.05,Budapest,Hungary
+1.28,103.85,unkown,Singapore
+23.02,120.23,Yongkang District,Taiwan
+47.99,-122.2,Everett,United States
+3.17,101.7,Kuala Lumpur,Malaysia
+13.73,100.5,Bangkok,Thailand
+41.53,-72.8,Meriden,United States
+37,-119,Shaver Lake,United States
+40.76,-73.99,New York,United States
+42.11,-88.04,Palatine,United States
+43.16,-77.61,Rochester,United States
+35.76,-78.78,Cary,United States
+22.28,114.15,Mid-level,Hong Kong
+51.43,-0.63,unkown,United Kingdom
+50.1,8.68,Frankfurt,Germany
+43.07,-88.15,Brookfield,United States
+38.53,-106,Salida,United States
+49,-76.83,unkown,Canada
+42.98,-88.09,New Berlin,United States
+27,30,unkown,Egypt
+-36.92,174.78,Auckland,New Zealand
+27.99,-82.78,Clearwater,United States
+39,-105,Woodland Park,United States
+55.47,-4.63,Ayr,United Kingdom
+-42,174,Clarence,New Zealand
+50.1,14.43,Prague,Czech Republic
+38.65,-90.54,Chesterfield,United States
+40.43,-74.41,East Brunswick,United States
+40.02,-83.06,Upper Arlington,United States
+34.85,-82.41,Greenville,United States
+25.2,-99.83,Montemorelos,Mexico
+44.98,-93.28,Minneapolis,United States
+47,20,Kocsér,Hungary
+30.6,-96.31,College Station,United States
+24.8,120.98,Dong District,Taiwan
+18.57,73.97,Pune,India
+40.76,-111.9,Salt Lake City,United States
+28,-82,Lakeland,United States
+29.42,-98.49,San Antonio,United States
+46.53,6.65,Lausanne,Switzerland
+30.45,-91.19,Baton Rouge,United States
+32.8,-117.14,San Diego,United States
+47.62,-122.17,Bellevue,United States
+48.42,-123.37,Victoria,Canada
+42.74,-84.48,East Lansing,United States
+37.44,-122.15,Palo Alto,United States
+65,-18,unkown,Iceland
+40.75,-111.88,Salt Lake City,United States
+43.32,-79.8,Burlington,Canada
+39.95,-75.17,Philadelphia,United States
+46,25,unkown,Romania
+33.77,-118.18,Long Beach,United States
+-34.93,138.6,Adelaide,Australia
+39.61,-104.88,Greenwood Village,United States
+-33.82,18.5,Cape Town,South Africa
+41.59,-93.62,Des Moines,United States
+38.83,-77,Washington,United States
+32,53,unkown,Iran
+40.77,-74.03,Union City,United States
+44.63,-63.58,Halifax,Canada
+38.99,-94.67,Overland Park,United States
+39.27,-96.32,Wamego,United States
+42.06,-104.19,Torrington,United States
+38.58,-121.49,Sacramento,United States
+37.79,-122.39,San Francisco,United States
+25.67,-100.42,Monterrey,Mexico
+32.76,-97.33,Fort Worth,United States
+37.69,-121.9,Pleasanton,United States
+42.25,-71.83,Worcester,United States
+-5,120,unkown,Indonesia
+-33.43,-70.62,Santiago,Chile
+38.94,-92.3,Columbia,United States
+38.44,-122.75,Santa Rosa,United States
+32,-5,unkown,Morocco
+33.65,-117.59,Rancho Santa Margarita,United States
+48.82,2.3,Malakoff,France
+44,-85,Harrison,United States
+-27.5,153,St Lucia,Australia
+43.63,-116.21,Boise,United States
+35.53,129.35,Ulsan,South Korea
+51.6,-2.53,Thornbury,United Kingdom
+33.63,-117.88,Newport Beach,United States
+37.55,-77.44,Richmond,United States
+40.71,-74.01,New York,United States
+41.03,28.95,Istanbul,Turkey
+39.29,-76.63,Baltimore,United States
+35.26,-120.65,San Luis Obispo,United States
+44.98,-93.27,Minneapolis,United States
+51.88,-0.53,Dunstable,United Kingdom
+61.7,50.75,Syktyvkar,Russia
+50.3,12.2,Adorf/Vogtl.,Germany
+38,23.73,Athens,Greece
+52.25,21,Warsaw,Poland
+45.17,15.5,Donja Glina,Croatia
+56.17,-10.22,unkown,unkown
+45.5,-122.69,Portland,United States
+37.87,127.73,Chuncheon-si,South Korea
+41.06,-74.78,Fredon Township,United States
+36.65,127.45,Cheongju-si,South Korea
+38.55,-121.75,Davis,United States
+40.63,-103.22,Sterling,United States
+37.39,-121.88,San Jose,United States
+48.82,-124.03,Lake Cowichan,Canada
+43.63,-79.6,Mississauga,Canada
+34.7,101.6,Huangnan,China
+47.67,-117.44,Spokane,United States
+42.27,-83.73,Ann Arbor,United States
+37.27,126.98,Suwon-si,South Korea
+45.52,-122.86,Beaverton,United States
+38.25,-85.56,Louisville,United States
+32.85,-117.25,San Diego,United States
+33.42,-111.93,Tempe,United States
+49.88,-97.17,Winnipeg,Canada
+39.96,-75.2,Philadelphia,United States
+35.23,-80.84,Charlotte,United States
+33.65,130.35,Fukuoka,Japan
+50.5,-104.63,Regina,Canada
+37.53,-121.97,Fremont,United States
+36.03,129.37,Pohang-si,South Korea
+-6.13,106.75,North Jakarta,Indonesia
+50.83,4.33,Saint-Gilles,Belgium
+40,-89,Maroa,United States
+34,-81.03,Columbia,United States
+34.06,-118.27,Los Angeles,United States
+28.62,77.22,New Delhi,India
+40.05,-105.21,Boulder,United States
+-37.75,144.97,Coburg,Australia
+43.25,-79.83,Hamilton,Canada
+18.5,-69.95,Santo Domingo,Dominican Republic
+30.61,-96.34,College Station,United States
+38.84,-104.81,Colorado Springs,United States
+38.69,-90.45,unkown,United States
+34.05,-118.26,Los Angeles,United States
+33.87,-118.29,Gardena,United States
+49.17,-122.97,Richmond,Canada
+42.38,-71.06,Boston,United States
+42.05,-87.69,Evanston,United States
+34.06,-118.3,Los Angeles,United States
+41.82,-71.42,Providence,United States
+47.68,-122.19,Kirkland,United States
+30,70,unkown,Pakistan
+40.02,-105.29,Boulder,United States
+48.67,19.5,Hriňová,Slovakia
+41.88,-87.63,Chicago,United States
+52.73,-1.33,unkown,United Kingdom
+32.21,-110.97,Tucson,United States
+33.87,-84.46,Atlanta,United States
+34.09,-118.13,Alhambra,United States
+39.97,-83,Columbus,United States
+26.38,-80.1,Boca Raton,United States
+40.79,-73.94,New York,United States
+33.91,-84.56,Marietta,United States
+40.21,-75.09,Warminster,United States
+38.73,-9.13,Lisbon,Portugal
+40.63,-81.93,Holmesville,United States
+52.38,-2.23,Kidderminster,United Kingdom
+33.52,126.48,Jeju-si,South Korea
+42.35,-71.54,Marlborough,United States
+34.73,-86.57,Huntsville,United States
+21.32,-157.85,Honolulu,United States
+38.96,-95.24,Lawrence,United States
+35.5,-80,Troy,United States
+40.08,-82.94,Columbus,United States
+35.14,-90.05,Memphis,United States
+42.29,-83.25,Dearborn,United States
+40.44,-86.92,West Lafayette,United States
+30.43,-97.83,Austin,United States
+38.79,-104.82,Colorado Springs,United States
+61.19,-149.89,Anchorage,United States
+37.43,-122.18,Stanford,United States
+55.93,38.08,Shchyolkovo,Russia
+64.25,60.97,unkown,Russia
+39.1,-94.6,Kansas City,United States
+38.61,-90.44,St. Louis,United States
+47.6,-122.33,Seattle,United States
+41.47,-81.74,Cleveland,United States
+29.77,-95.4,Houston,United States
+22.53,114.13,Man Kam To,Hong Kong
+35.17,128.1,Jinju-si,South Korea
+38.19,-84.88,Frankfort,United States
+34.18,-103.34,Portales,United States
+54.88,37.42,Serpukhov,Russia
+41.97,-91.66,Cedar Rapids,United States
+29.73,-95.43,Houston,United States
+37,-91.94,Willow Springs,United States
+39.48,-0.4,Valencia,Spain
+9.93,-84.08,San Jose,Costa Rica
+40.82,-75.6,Palmerton,United States
+41.88,12.5,Rome,Italy
+33.92,-118.41,El Segundo,United States
+44,-105.83,Gillette,United States
+47.01,-122.88,Olympia,United States
+42.3,-83.71,Ann Arbor,United States
+45.48,-122.81,Beaverton,United States
+36.18,-115.26,Las Vegas,United States
+33.83,-117.84,Orange,United States
+32.78,-97.08,Arlington,United States
+47,-120,Quincy,United States
+43.75,-79.2,Toronto,Canada
+32.83,-85.12,West Point,United States
+45.3,-75.78,Ottawa,Canada
+28.62,-81.43,Orlando,United States
+43.07,-76.06,East Syracuse,United States
+37.79,-122.4,San Francisco,United States
+46.07,14.5,Ljubljana,Slovenia
+26.18,-80.17,Oakland Park,United States
+35,135.75,Kyoto,Japan
+51.22,4.42,Antwerpen,Belgium
+39.63,-79.95,Morgantown,United States
+13,122,unkown,Philippines
+42.13,-87.85,Northbrook,United States
+42.97,-85.65,Grand Rapids,United States
+33.59,-101.86,Lubbock,United States
+30.4,-97.75,Austin,United States
+37.38,-122.02,Sunnyvale,United States
+32.97,-96.75,Richardson,United States
+40.23,-111.68,Provo,United States
+35.52,-97.57,Oklahoma City,United States
+32.55,-92.04,Monroe,United States
+33.33,-111.86,Chandler,United States
+36.05,-94.15,Fayetteville,United States
+46.86,-114.03,Missoula,United States
+29.96,-90.08,New Orleans,United States
+38.85,-77.32,Fairfax,United States
+20.67,-103.33,Guadalajara,Mexico
+14.57,121.03,Makati City,Philippines
+37.94,-122.54,Larkspur,United States
+30.92,-94.85,Moscow,United States
+41.83,-72.83,Weatogue,United States
+43.07,-89.51,Madison,United States
+34.74,-92.27,Little Rock,United States
+34.75,-92.28,Little Rock,United States
+35.08,-106.65,Albuquerque,United States
+34.15,-118.14,Pasadena,United States
+44.83,20.5,Belgrade,Serbia
+40.11,-88.2,Urbana,United States
+30.45,-97.77,Austin,United States
+41.22,-79.52,Knox,United States
+32.95,-96.71,Richardson,United States
+43.45,-80.5,Kitchener,Canada
+33.99,-117.52,Mira Loma,United States
+31.07,-98.18,Lampasas,United States
+37.42,-122.16,Stanford,United States
+27.96,-82.46,Tampa,United States
+46,-94,Pierz,United States
+37.38,126.92,Anyang-si,South Korea
+38.89,-77.25,Vienna,United States
+40.79,-96.69,Lincoln,United States
+46.35,-72.57,Trois-Rivières,Canada
+39.97,116.3,Beijing,China
+37.28,-121.96,Campbell,United States
+44.86,-93.44,Eden Prairie,United States
+34.19,-84.82,Cartersville,United States
+39.53,-119.81,Reno,United States
+37.87,-122.26,Berkeley,United States
+10.63,-61.52,unkown,Trinidad and Tobago
+35.47,-97.52,Oklahoma City,United States
+41.14,-81.35,Kent,United States
+40.65,-75.36,Bethlehem,United States
+40.85,-74.83,Hackettstown,United States
+23.97,121.58,Jian Township,Taiwan
+51.92,4.48,Rotterdam,The Netherlands
+43.08,-89.41,Madison,United States
+35.51,-97.5,Oklahoma City,United States
+35.8,-78.79,Cary,United States
+47.66,-122.3,Seattle,United States
+41.49,-81.67,Cleveland,United States
+34.67,133.9,Okayama,Japan
+44.97,-93.08,Saint Paul,United States
+37.41,-121.94,San Jose,United States
+42.97,-81.25,London,Canada
+43.04,-76.15,Syracuse,United States
+51.22,6.78,Dusseldorf,Germany
+40.76,-73.97,New York,United States
+42.99,-71.46,Manchester,United States
+65,-153,unkown,United States
+35.95,126.7,Gunsan-si,South Korea
+27.95,-82.79,Clearwater,United States
+40.52,-79.88,Pittsburgh,United States
+33.88,-117.89,Fullerton,United States
+42.46,-70.95,Lynn,United States
+-34.92,-56.17,Montevideo,Uruguay
+33.94,-84.38,Atlanta,United States
+37.72,-122.41,San Francisco,United States
+40.42,-80.05,Pittsburgh,United States
+45.01,-93.15,Roseville,United States
+37.1,-80.67,Dublin,United States
+50.22,15.83,Hradec Kralove,Czech Republic
+24.1,120.52,Hemei Township,Taiwan
+28.82,105.2,Yibin,China
+44.78,-91.49,Eau Claire,United States
+39.69,-84.16,Kettering,United States
+57.25,12,unkown,Sweden
+44.5,11.33,Bologna,Italy
+39.76,-84.19,Dayton,United States
+30.05,31.25,unkown,Egypt
+23.13,113.33,Guangzhou,China
+38.25,-85.75,Louisville,United States
+35.63,140.12,Chiba,Japan
+37.6,-77.45,Richmond,United States
+25.82,-80.3,Miami Springs,United States
+52.2,0.12,Cambridge,United Kingdom
+43.08,-77.63,Rochester,United States
+35.17,-80.79,Charlotte,United States
+55.72,12.57,Copenhagen,Denmark
+32.85,-97.14,Bedford,United States
+49.05,8.4,Karlsruhe,Germany
+46.73,-116.99,Moscow,United States
+38.05,-78.49,Charlottesville,United States
+35.77,-78.63,Raleigh,United States
+42.28,-83.78,Ann Arbor,United States
+38.23,-85.79,Louisville,United States
+55.07,83.08,Novosibirsk,Russia
+44.73,-90.75,Willard,United States
+45.77,4.83,Lyon,France
+42.03,-93.64,Ames,United States
+44.93,-122.98,Salem,United States
+46.86,-96.81,Fargo,United States
+30.17,-95.5,The Woodlands,United States
+46.22,6.15,Geneva,Switzerland
+12.97,77.58,Bangalore,India
+43.05,-87.9,Milwaukee,United States
+41.36,-75.96,Dallas,United States
+34.58,-118.12,Palmdale,United States
+32.29,-90.19,Jackson,United States
+45.52,-122.67,Portland,United States
+31,36,unkown,Jordan
+35.47,139.63,Yokohama,Japan
+-25.27,-57.67,Asuncion,Paraguay
+39.79,-86.16,Indianapolis,United States
+38.03,-78.51,Charlottesville,United States
+48.32,14.3,Linz,Austria
+42.3,-83.02,Windsor,Canada
+43.08,141.35,Sapporo,Japan
+-0.23,-78.5,Quito Canton,Ecuador
+49.22,16.67,Brno,Czech Republic
+37.78,-122.22,Oakland,United States
+56,24,unkown,Lithuania
+34.11,-84.3,Alpharetta,United States
+35.22,-97.46,Norman,United States
+38.92,-94.7,Overland Park,United States
+37.39,-122.09,Mountain View,United States
+27.79,-97.4,Corpus Christi,United States
+22.03,-100.73,Villa de Zaragoza,Mexico
+43.78,11.25,Florence,Italy
+54.48,-0.62,Whitby,United Kingdom
+40.6,-105.06,Fort Collins,United States
+55.7,13.17,Lund,Sweden
+39.13,-76.8,unkown,United States
+43.66,-70.29,Portland,United States
+24.95,121.22,Pingzhen City,Taiwan
+41.51,-81.61,Cleveland,United States
+56.88,24.13,Baloži,Latvia
+30.42,-87.22,Pensacola,United States
+39.92,32.83,Ankara,Turkey
+59,26,unkown,Estonia
+29.74,-95.41,Houston,United States
+18.48,-66.13,San Juan,Puerto Rico
+41.65,-91.51,Iowa City,United States
+55.95,-3.22,Edinburgh,United Kingdom
+24.47,118.08,Xiamen,China
+42.48,-83.29,Southfield,United States
+44.89,-68.68,Orono,United States
+43.08,-89.38,Madison,United States
+33.52,-86.81,Birmingham,United States
+53.5,-2.22,Manchester,United Kingdom
+48.58,7.75,Strasbourg,France
+37.4,-5.98,Seville,Spain
+25.74,-80.31,Miami,United States
+51.05,13.75,Dresden,Germany
+34.42,-119.71,Santa Barbara,United States
+35.92,-79.04,Chapel Hill,United States
+39.13,117.2,Tianjin,China
+36.64,-121.8,Seaside,United States
+34.01,-118.47,Santa Monica,United States
+40.75,-111.83,Salt Lake City,United States
+43.87,-79.27,Markham,Canada
+34.21,-118.87,Thousand Oaks,United States
+36.17,-115.12,Las Vegas,United States
+44.43,26.1,Bucharest,Romania
+43.07,-89.4,Madison,United States
+42.38,-83.08,Detroit,United States
+34.27,108.9,Xi'an,China
+48.82,2.27,Issy-les-Moulineaux,France
+43.07,-89.45,Madison,United States
+38.75,-90.42,Bridgeton,United States
+-31.97,115.82,Kings Park,Australia
+37.72,-89.22,Carbondale,United States
+48.43,-68.37,unkown,Canada
+36.15,-96,Tulsa,United States
+40.35,-74.08,Red Bank,United States
+33.95,-117.38,Riverside,United States
+38.51,-89.98,Belleville,United States
+35,33,unkown,Cyprus
+47.49,-117.58,Cheney,United States
+45.32,-75.9,Ottawa,Canada
+40.7,-74.27,Union,United States
+44.66,-74.97,Potsdam,United States
+36.65,138.17,Nagano,Japan
+33.72,-117.87,Santa Ana,United States
+34.92,-81.01,Rock Hill,United States
+28,3,unkown,Algeria
+40.11,-88.24,Champaign,United States
+34.38,132.45,Hiroshima,Japan
+36.07,-79.77,Greensboro,United States
+47.27,11.4,Innsbruck,Austria
+47.55,-52.67,St. John's,Canada
+32.87,-96.94,Irving,United States
+30.26,-97.72,Austin,United States
+29.74,-95.45,Houston,United States
+21.31,-157.83,Honolulu,United States
+42.44,-76.49,Ithaca,United States
+17.37,78.43,Hyderabad,India
+31.34,-94.73,Lufkin,United States
+52,4.22,Naaldwijk,The Netherlands
+50.43,30.52,Kiev,Ukraine
+40.8,-74.49,Morristown,United States
+32.8,-96.79,Dallas,United States
+42.49,-83.14,Royal Oak,United States
+47.53,7.7,Pratteln,Switzerland
+33.6,-112.12,Phoenix,United States
+51.77,-1.25,Oxford,United Kingdom
+52.97,-1.17,Nottingham,United Kingdom
+30.13,-93.77,Orange,United States
+47.66,-122.7,Silverdale,United States
+40.77,-73.96,New York,United States
+44.96,-73.58,Mooers,United States
+44.98,-93.22,Minneapolis,United States
+36.28,140.43,Higashiibaraki District,Japan
+63.2,9.75,unkown,Norway
+34.26,-118.59,Chatsworth,United States
+29.88,-95.53,Houston,United States
+30.33,-81.65,Jacksonville,United States
+42.64,-83.28,Pontiac,United States
+18.42,-66.05,San Juan,Puerto Rico
+39.74,-75.55,Wilmington,United States
+30.58,114.32,Wuhan,China
+34.19,-118.83,Thousand Oaks,United States
+34.21,-118.57,Los Angeles,United States
+42.51,-71.2,Burlington,United States
+32.21,-110.88,Tucson,United States
+42.81,-110.99,Auburn,United States
+25.25,55.27,Dubai,United Arab Emirates
+52.8,103.67,unkown,Russia
+-22.88,-43.28,Rio de Janeiro,Brazil
+39.86,-86.12,Indianapolis,United States
+43.47,-80.53,Waterloo,Canada
+39.98,-75.15,Philadelphia,United States
+24.88,118.6,Quanzhou,China
+33.23,-97.13,Denton,United States
+29.69,-95.26,Houston,United States
+8,-66,unkown,Venezuela
+46.95,7.43,Berne,Switzerland
+52.4,9.73,Hanover,Germany
+30.29,-97.81,West Lake Hills,United States
+40.57,-84.18,Wapakoneta,United States
+40.76,-73.57,Westbury,United States
+33.44,-112.04,Phoenix,United States
+48,68,unkown,Kazakhstan
+41.81,-72.26,unkown,United States
+26.41,-80.09,Boca Raton,United States
+40,-110,unkown,United States
+-6.95,107.57,Bandung,Indonesia
+7,81,unkown,Sri Lanka
+38.97,-94.83,Lenexa,United States
+38,-121.32,Stockton,United States
+33.99,-117.37,Riverside,United States
+33.79,-84.45,Atlanta,United States
+36.47,127.05,Gongju-si,South Korea
+44.59,-123.27,Corvallis,United States
+29.64,-82.35,Gainesville,United States
+37.97,-87.49,Evansville,United States
+31.83,130.28,Satsumasendai,Japan
+38.66,-90.32,St. Louis,United States
+36.14,-95.99,Tulsa,United States
+33,-87,Brierfield,United States
+40.39,-74.17,Holmdel,United States
+41.07,-85.15,Fort Wayne,United States
+26.62,-81.87,Fort Myers,United States
+33.16,-117.32,Carlsbad,United States
+56.87,60.58,Yekaterinburg,Russia
+49.75,6.17,Schoos,Luxembourg
+51.97,7.63,Münster,Germany
+35.19,-111.66,Flagstaff,United States
+43.73,-79.43,Toronto,Canada
+-26.12,28.03,Randburg,South Africa
+-2.22,-79.9,Guayaquil,Ecuador
+40.79,-73.4,Melville,United States
+22.75,121.15,Taidong City,Taiwan
+48,7.87,Freiburg,Germany
+41.26,-95.94,Omaha,United States
+45.4,-71.9,Sherbrooke,Canada
+64.15,-21.97,Reykjavik,Iceland
+40.56,-74.28,Woodbridge Township,United States
+45.54,-122.96,Hillsboro,United States
+41.22,-73.89,Croton-on-Hudson,United States
+41.49,-90.5,Moline,United States
+50.77,6.1,Aachen,Germany
+37.91,-122.05,Walnut Creek,United States
+53.85,27.5,Minsk,Belarus
+42.48,-71.28,Bedford,United States
+33.46,-112.07,Phoenix,United States
+14.08,-87.23,Tegucigalpa,Honduras
+32.3,-64.8,unkown,Bermuda
+45.95,-66.67,Fredericton,Canada
+37.77,-122.44,San Francisco,United States
+-33.93,18.47,Cape Town,South Africa
+41.79,-88.17,Naperville,United States
+28.07,-80.62,Melbourne,United States
+43.09,-75.23,Utica,United States
+47.5,-122.25,Seattle,United States
+48.17,17.17,Bratislava,Slovakia
+37.69,-97.34,Wichita,United States
+32.93,-97.1,Grapevine,United States
+36.2,-86.77,Nashville,United States
+33.88,35.5,unkown,Lebanon
+37.39,-122.08,Mountain View,United States
+50.05,19.92,Krakow,Poland
+40.63,-75.39,Bethlehem,United States
+40.5,-74.5,Somerset,United States
+33.98,-117.9,Rowland Heights,United States
+30.23,-93.19,Lake Charles,United States
+34.05,-117.98,La Puente,United States
+41.89,-87.94,Elmhurst,United States
+39.26,-119.95,Incline Village,United States
+38.79,-121.24,Rocklin,United States
+51.67,7.82,Hamm,Germany
+35.62,-105.98,Santa Fe,United States
+34.11,-81.2,Irmo,United States
+39.19,-96.59,Manhattan,United States
+34.78,126.38,Mokpo-si,South Korea
+25.81,-80.23,Miami,United States
+49.42,8.7,Heidelberg,Germany
+36,-83.92,Knoxville,United States
+40.1,-75.37,King of Prussia,United States
+31.76,-93.09,Natchitoches,United States
+49.45,11.07,Nuremberg,Germany
+13.1,-59.62,Bridgetown,Barbados
+51.43,5.5,Eindhoven,The Netherlands
+40,-89.29,Mount Pulaski,United States
+29.3,-94.79,Galveston,United States
+34.98,138.4,Shizuoka,Japan
+42.42,-71.11,Medford,United States
+52.42,16.88,Poznan,Poland
+33.55,-101.92,Lubbock,United States
+45.65,-122.66,Vancouver,United States
+40.31,-111.7,Orem,United States
+34,9,unkown,Tunisia
+38.08,-78.9,Waynesboro,United States
+36,-78.94,Durham,United States
+43.87,-79.12,Pickering,Canada
+32.8,-96.89,Dallas,United States
+32.92,-96.62,Garland,United States
+38.65,-77.34,Woodbridge,United States
+45.18,5.72,Grenoble,France
+39.74,-104.86,Aurora,United States
+41.77,-72.7,Hartford,United States
+40.79,-74.06,Secaucus,United States
+40.82,-73.2,Hauppauge,United States
+38.02,-84.49,Lexington,United States
+44.95,-93.16,Saint Paul,United States
+46.5,-81.02,Greater Sudbury,Canada
+42.76,-71.47,Nashua,United States
+35.92,14.42,Mosta,Malta
+39.63,-75.7,Newark,United States
+30.25,-90.92,Gonzales,United States
+21.45,-158.02,Mililani,United States
+33.89,-84.29,Chamblee,United States
+36.85,-76.21,Norfolk,United States
+43.3,5.37,Marseille,France
+40.67,-73.67,Malverne,United States
+43.55,-80.25,Guelph,Canada
+60.17,24.7,Espoo,Finland
+34.15,-118.84,Westlake Village,United States
+33.2,-87.56,Tuscaloosa,United States
+41.78,-87.61,Chicago,United States
+-33.37,-70.52,Santiago,Chile
+25.88,-80.34,Hialeah Gardens,United States
+32.33,-95.29,Tyler,United States
+36.97,127.92,Chungju-si,South Korea
+37.8,127.87,Hongcheon-gun,South Korea
+39.06,-94.59,Kansas City,United States
+53.22,6.58,Groningen,The Netherlands
+34.03,-6.85,Rabat,Morocco
+32.08,34.82,Ramat Gan,Israel
+38.86,-104.71,Colorado Springs,United States
+40.02,-75.33,Bryn Mawr,United States
+42.84,-78.75,West Seneca,United States
+39.78,-86.11,Indianapolis,United States
+26.15,119.28,Fuzhou,China
+43.45,-79.68,Oakville,Canada
+39.73,-105.19,Golden,United States
+52.17,-106.67,Saskatoon,Canada
+38.26,-85.7,Louisville,United States
+52.02,4.35,Delft,The Netherlands
+39.83,-84.2,Dayton,United States
+47.05,8.28,Littau,Switzerland
+31.78,-106.49,El Paso,United States
+34.07,-117.78,Pomona,United States
+35.06,-85.25,Chattanooga,United States
+42.57,-84.84,Charlotte,United States
+52.32,-3.5,unkown,United Kingdom
+40,-80.83,Bellaire,United States
+42.08,-76.01,Vestal,United States
+35.2,-101.84,Amarillo,United States
+29.74,-95.56,Houston,United States
+37.95,-122.07,Pleasant Hill,United States
+40.51,-88.99,Normal,United States
+35.13,136.88,Nagoya,Japan
+26.27,-80.26,Coral Springs,United States
+41.39,-73.32,Newtown,United States
+53.2,5.8,Leeuwarden,The Netherlands
+34.67,135.2,Kobe,Japan
+42.5,-83.1,Madison Heights,United States
+47.63,-122.35,Seattle,United States
+44.88,-93.37,Edina,United States
+42.27,-71.62,Westborough,United States
+47.08,15.37,Thal,Austria
+23.87,121.5,Shoufeng Township,Taiwan
+39.29,-76.56,Baltimore,United States
+24,90,unkown,Bangladesh
+49.25,6.97,Saarbrücken,Germany
+51.45,-2.58,Bristol,United Kingdom
+51.27,-1.08,Basingstoke,United Kingdom
+15.5,-90.25,Cobán,Guatemala
+46.25,-119.1,Pasco,United States
+34.11,-117.72,Claremont,United States
+46.63,14.33,Klagenfurt,Austria
+24.55,120.8,Miaoli City,Taiwan
+37.73,140.47,Fukushima,Japan
+14.57,121.07,Pasig City,Philippines
+52,5.08,Nieuwegein,The Netherlands
+51.83,5.87,Nijmegen,The Netherlands
+39,-76.88,Greenbelt,United States
+24.77,121.75,Yilan City,Taiwan
+39.18,-86.51,Bloomington,United States
+49.5,8.47,Mannheim,Germany
+46.55,15.67,Maribor,Slovenia
+33.87,-84.12,Lilburn,United States
+8,-2,unkown,Ghana
+36.11,-86.67,Nashville,United States
+40.62,-111.89,Midvale,United States
+33.56,-86.89,Birmingham,United States
+36.83,-76.1,Virginia Beach,United States
+35.16,-80.9,Charlotte,United States
+32.32,-106.75,Las Cruces,United States
+41.31,-77.36,Waterville,United States
+26.35,-80.08,Boca Raton,United States
+29.5,47.75,unkown,Kuwait
+52.22,6.92,Enschede,The Netherlands
+41.12,1.25,Tarragona,Spain
+-33,-56,unkown,Uruguay
+40.85,-74.23,Cedar Grove,United States
+46.82,-100.77,Bismarck,United States
+28.66,-81.31,Casselberry,United States
+39.3,-76.58,Baltimore,United States
+42.04,-88.11,Hoffman Estates,United States
+43.62,1.43,Toulouse,France
+45.07,7.67,Turin,Italy
+47.69,-116.78,Coeur d'Alene,United States
+38.42,27.17,Izmir,Turkey
+47.48,8.22,Windisch,Switzerland
+-31.55,-68.52,San Juan,Argentina
+34.08,-117.74,Pomona,United States
+34.35,-89.5,Oxford,United States
+36.68,117,Jinan,China
+41.66,-83.52,Toledo,United States
+45.64,-122.68,Vancouver,United States
+42.23,-83.63,Ypsilanti,United States
+43.72,10.4,Pisa,Italy
+38.73,-121.23,Roseville,United States
+33.82,-118.04,Cypress,United States
+32.78,-79.94,Charleston,United States
+42.67,23.3,Sofia,Bulgaria
+12.17,-69,unkown,Curacao
+41.56,-105.82,Bosler,United States
+43.37,-80.33,Cambridge,Canada
+33.6,-117.71,Laguna Woods,United States
+31.58,120.3,Wuxi,China
+29.65,-82.31,Gainesville,United States
+44.74,-85.62,Traverse City,United States
+35.1,-77.1,New Bern,United States
+42.32,-83.37,Garden City,United States
+47.61,-122.12,Bellevue,United States
+35.05,-89.86,Memphis,United States
+34.18,-118.46,Van Nuys,United States
+37.23,-80.43,Blacksburg,United States
+39.41,-87.4,unkown,United States
+35.85,-78.68,Raleigh,United States
+59.37,24.8,Järveküla,Estonia
+50.65,-120.4,Kamloops,Canada
+44.6,-76.22,Elgin,Canada
+43.11,-76.19,Liverpool,United States
+40.62,-79.16,Indiana,United States
+56.5,85.08,Tomsk,Russia
+45.66,-122.52,Vancouver,United States
+42.36,-83.36,Livonia,United States
+33.08,-96.78,Plano,United States
+50.73,7.1,Bonn,Germany
+40.03,-76.28,Lancaster,United States
+33.93,-84.47,Marietta,United States
+48.1,16.28,Maria Enzersdorf,Austria
+19.4,-99.15,Mexico City,Mexico
+45.67,-111.04,Bozeman,United States
+44.04,-123.06,Eugene,United States
+40.69,-89.6,Peoria,United States
+50.33,18.67,Gliwice,Poland
+40.72,-73.65,Garden City,United States
+49.87,8.65,Darmstadt,Germany
+39,-76.93,College Park,United States
+40.89,-81.41,North Canton,United States
+17.13,-61.83,Saint John's,Antigua and Barbuda
+42.52,-90.68,Dubuque,United States
+37.39,-77.57,Chesterfield,United States
+42.4,-71.12,Somerville,United States
+29.54,-98.42,San Antonio,United States
+35.05,-85.32,Chattanooga,United States
+13.17,-59.53,Wakefield Tenantry,Barbados
+37.88,-122.27,Berkeley,United States
+25.78,-80.29,Miami,United States
+-32.55,151.55,Vacy,Australia
+47.67,9.17,Konstanz,Germany
+42.63,-71.33,Lowell,United States
+22.37,114.12,Tsuen Wan,Hong Kong
+43.46,-88.84,Beaver Dam,United States
+42.64,-73.76,Albany,United States
+34.03,-117.62,Ontario,United States
+37.26,-83.3,Busy,United States
+40.73,-74.07,Jersey City,United States
+51.45,6.95,Mulheim,Germany
+38.97,-76.86,Lanham-Seabrook,United States
+27.67,-97.27,Corpus Christi,United States
+37.97,139.03,Niigata,Japan
+40.55,-105.11,Fort Collins,United States
+34.53,-82.71,Anderson,United States
+21.02,105.87,unkown,Vietnam
+35.45,136.77,Gifu,Japan
+59.92,17.63,unkown,Sweden
+52.33,5.23,Almere,The Netherlands
+40.72,-74.05,Jersey City,United States
+50.72,1.62,Boulogne-sur-Mer,France
+-6.2,-39.9,unkown,Brazil
+38.41,-82.44,Huntington,United States
+44.91,-93.48,Minnetonka,United States
+22.38,114.27,Sai Kung,Hong Kong
+39.95,-75.05,Merchantville,United States
+55.83,-4.1,unkown,United Kingdom
+33.96,-118.39,Los Angeles,United States
+38.91,-77.03,Washington,United States
+25.94,-80.21,Miami,United States
+40.71,-74.36,Summit,United States
+29.53,-98.5,San Antonio,United States
+42.29,-83.72,Ann Arbor,United States
+29.7,-82.4,Gainesville,United States
+38.67,-90.37,Olivette,United States
+37.31,-121.93,San Jose,United States
+51.82,19.47,Lodz,Poland
+52.48,1.75,Lowestoft,United Kingdom
+42.99,-78.74,Buffalo,United States
+40.71,-111.85,Salt Lake City,United States
+40.79,-77.85,State College,United States
+42.97,-85.92,Allendale Charter Township,United States
+44.56,-123.28,Corvallis,United States
+42.78,-73.66,Troy,United States
+36.36,-119.3,Visalia,United States
+41.06,-73.81,Elmsford,United States
+34.71,-86.62,Huntsville,United States
+52.03,8.53,Bielefeld,Germany
+34.05,134.57,Tokushima,Japan
+25,45,unkown,Saudi Arabia
+42.18,-87.81,Highland Park,United States
+53.38,-1.5,Sheffield,United Kingdom
+26.42,127.78,Kunigami District,Japan
+42.87,-8.55,Santiago de Compostela,Spain
+51.33,12.42,Leipzig,Germany
+54.37,18.68,Gdansk,Poland
+44.52,-89.56,Stevens Point,United States
+39.17,-76.85,Columbia,United States
+42.3,-85.61,Kalamazoo Township,United States
+41.93,-88.76,DeKalb,United States
+33.67,73.13,Islamabad,Pakistan
+43.15,131.88,Vladivostok,Russia
+33.79,-117.85,Orange,United States
+32.97,131.58,Bungoono,Japan
+42.15,-75.89,Binghamton,United States
+38.59,-121.41,Sacramento,United States
+43.12,-89.35,Madison,United States
+36.07,136.2,Fukui,Japan
+35.67,51.43,Tehrān,Iran
+60.45,22.25,Turku,Finland
+43.23,-86.25,Muskegon,United States
+40.75,-73.64,Mineola,United States
+36.78,-95.62,Delaware,United States
+55.58,13,Malmö,Sweden
+51.72,8.73,Paderborn,Germany
+36.74,-119.78,Fresno,United States
+45.03,39,Krasnodar,Russia
+34.25,134.03,Takamatsu,Japan
+39.62,-106.46,Vail,United States
+42.97,-78.8,Buffalo,United States
+-26.1,28.07,Sandton,South Africa
+41.67,-71.5,unkown,United States
+22.5,88.33,Kolkata,India
+41.71,-85.97,Elkhart,United States
+64.85,-147.85,Fairbanks,United States
+42.89,-85.76,Grandville,United States
+43.02,-77.77,Scottsville,United States
+3.1,101.62,Petaling Jaya,Malaysia
+38.81,-89.96,Edwardsville,United States
+35.12,-103.32,San Jon,United States
+34.22,-84.15,Cumming,United States
+36.69,-82.02,Abingdon,United States
+40.53,-74.34,Edison,United States
+28.01,-82.56,Tampa,United States
+51.47,-0.98,Reading,United Kingdom
+42.23,-83.7,Ann Arbor,United States
+30.22,-93.03,Iowa,United States
+43.15,-72.47,Rockingham,United States
+43.83,125.33,Changchun,China
+55.42,11.57,Soro,Denmark
+44.09,-121.29,Bend,United States
+38.69,-77.14,Fort Belvoir,United States
+43.6,3.88,Montpellier,France
+31.62,130.53,Kagoshima,Japan
+33.2,-96.61,McKinney,United States
+38.31,-85.74,Jeffersonville,United States
+38.35,-0.48,Alicante,Spain
+-29.83,30.88,Pinetown,South Africa
+20.98,-89.65,Merida,Mexico
+53.83,-1.58,Leeds,United Kingdom
+39.9,-86.22,Indianapolis,United States
+33.67,-117.97,Huntington Beach,United States
+44.42,8.95,Genoa,Italy
+51.43,6.75,Duisburg,Germany
+41.7,-71.45,Warwick,United States
+41.04,-81.52,Akron,United States
+36.38,139.77,Tochigi,Japan
+38.23,21.73,Patra,Greece
+52.67,1.48,unkown,United Kingdom
+33.91,-118.35,Hawthorne,United States
+34.23,-119.05,Camarillo,United States
+45.52,-73.7,Montreal,Canada
+32,-84,Leslie,United States
+35.37,-94.41,Fort Smith,United States
+44.02,-88.54,Oshkosh,United States
+35.58,-97.64,Oklahoma City,United States
+38.1,-122.58,Novato,United States
+40.6,-74.76,Readington Township,United States
+33.76,-118.08,Seal Beach,United States
+57.18,65.48,Tyumen,Russia
+48.73,2.28,Massy,France
+30.3,120.12,Hangzhou,China
+42.67,-73.77,Albany,United States
+32.85,-96.97,Irving,United States
+41.15,-95.91,Bellevue,United States
+42.46,-83.23,Southfield,United States
+48.75,-122.49,Bellingham,United States

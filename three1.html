@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>codered three</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				background-color: #000000;
+				margin: 0px;
+				overflow: hidden;
+				font-family:Monospace;
+				font-size:13px;
+				text-align:center;
+				font-weight: bold;
+				text-align:center;
+			}
+
+			a {
+				color:#0078ff;
+			}
+
+			#info {
+				color: #fff;
+				position: absolute;
+				top: 0px; width: 100%;
+				padding: 5px;
+				z-index: 100;
+			}
+
+		</style>
+	</head>
+	<body>
+
+		<div id="info">
+		CODE RED THREE.JS
+		</div>
+
+		<script src="lib/three.min.js"></script>
+		<script src="lib/three/Detector.js"></script>
+		<script src="lib/three/libs/stats.min.js"></script>
+	    <script type="text/javascript" src="lib/d3.v3.min.js"></script>
+
+		<script>
+
+	
+
+			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+
+			var container, stats;
+			var camera, scene, renderer, particles, geometry, particleMaterial, parameters, i, h, color;
+			var mouseX = 0, mouseY = 0;
+
+			var windowHalfX = window.innerWidth / 2;
+			var windowHalfY = window.innerHeight / 2;
+
+			var width = window.innerWidth,
+			    height = 2000;
+
+			var time = {};
+			var geo = {};
+			var data;
+
+			//d3.tsv("data/codered-july.table.txt", function(d){
+			d3.tsv("data/codered-july.table_FILTER_us.txt", function(d){
+
+			  d.start_time*=1;
+			  d.end_time  *=1;
+			  d.duration = d.end_time- d.start_time;
+			  d.latitude  *=1;
+			  d.longitude  *=1;
+			  d.date = new Date(d.start_time*1000);
+
+			  //d.geo = d.latitude + d.longitude;
+			  d.geo = d.latitude;
+
+			  if(d.geo!=0){
+			    return d;
+			  }
+
+			},function(d){
+
+			  data = d;
+			 
+			  init();
+			  animate();
+
+			});
+
+
+			function init() {
+
+				time.max = d3.max(data, function(d) { return d.start_time; });
+				time.min = d3.min(data, function(d) { return d.start_time; });
+				time.scale = scaleTime = d3.scale.linear()
+				  .domain([time.min, time.max])
+				  .range([0, height]);
+
+				geo.min = d3.min(data, function(d) { return d.geo; });
+				geo.max = d3.max(data, function(d) { return d.geo; });
+				geo.scale = d3.scale.sqrt()
+				  .domain([ geo.min, geo.max ])
+				  .range([0,width]);
+
+				container = document.createElement( 'div' );
+				document.body.appendChild( container );
+
+				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 3000 );
+				camera.position.z = 100;
+
+				scene = new THREE.Scene();
+				scene.fog = new THREE.FogExp2( 0x000000, 0.0007 );
+
+				geometry = new THREE.Geometry();
+
+				for ( i = 0; i < data.length; i ++ ) {
+
+					
+
+				}
+
+				data.forEach(function(d){
+
+				  var vertex = new THREE.Vector3();
+				  vertex.y = parseInt(geo.scale(d.geo))- windowHalfX;
+				  vertex.x = parseInt(time.scale(d.start_time)) - windowHalfY;
+				  vertex.z = 0;
+
+				  geometry.vertices.push( vertex );
+				});
+
+				particleMaterial = new THREE.ParticleBasicMaterial( { size: 1 , color: 0xffff00, opacity: 0.6 } );
+				particles = new THREE.ParticleSystem( geometry, particleMaterial );
+
+				scene.add( particles );
+				
+
+				renderer = new THREE.WebGLRenderer();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				container.appendChild( renderer.domElement );
+
+				stats = new Stats();
+				stats.domElement.style.position = 'absolute';
+				stats.domElement.style.top = '0px';
+				container.appendChild( stats.domElement );
+
+				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+
+
+			}
+
+
+			function onDocumentMouseMove( event ) {
+
+				mouseX = event.clientX - windowHalfX;
+				mouseY = event.clientY - windowHalfY;
+
+			}
+
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+				render();
+				stats.update();
+
+			}
+
+			function render() {
+
+	
+				camera.position.x += ( mouseX - camera.position.x ) * 0.05;
+				camera.position.y += ( - mouseY - camera.position.y ) * 0.05;
+
+				camera.lookAt( scene.position );
+				
+				renderer.render( scene, camera );
+
+			}
+
+
+		</script>
+	</body>
+</html>

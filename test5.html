@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <title>code red</title>
+    
+    <script type="text/javascript" src="lib/d3.v3.min.js"></script>
+    
+    <link href='http://api.tiles.mapbox.com/mapbox.js/v1.0.3/mapbox.css' rel='stylesheet' />
+      <!--[if lte IE 8]>
+        <link href='http://api.tiles.mapbox.com/mapbox.js/v1.0.3/mapbox.ie.css' rel='stylesheet' />
+      <![endif]-->
+      <script src='http://api.tiles.mapbox.com/mapbox.js/v1.0.3/mapbox.js'></script>
+
+    <style type="text/css">
+      body, html {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+      canvas, svg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index:1;
+      }
+      svg {
+        font: 10px sans-serif;
+        cursor: none;
+      }
+      svg .axis {
+        fill:#FFF;
+        opacity: 0.6;
+      }
+      svg .axis line {
+        fill: none;
+        stroke: #FFF;
+        stroke-width:1;
+        opacity: 0.3;
+      }
+      svg .axis path {
+        display: none;
+      }
+      svg .back {
+        fill: none;
+        stroke: #D7FCFF;
+        stroke-width: 20;
+        opacity: 0.07;
+      }
+      svg .line {
+        fill: none;
+        stroke: #D7FCFF;
+        stroke-width: 1;
+        opacity: 0.4;
+      }
+      svg .label {
+        fill:#FFF;
+      }
+      #chart {
+        position: relative;
+        height: 60%;
+        width: 100%;
+        overflow-y: scroll;
+        overflow-x: hidden;
+      }
+      #map { 
+        height: 40%;
+        width: 100%;
+        position: relative;
+        bottom: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="chart"></div>
+    <div id="map"></div>
+    <script type="text/javascript">
+
+    // ruff sketch der zeigt wie man ne ganze menge auf den canvas per d3 malen kann
+
+    var width = window.innerWidth,
+        height = 2000;
+
+    var canvas = d3.select("#chart").append("canvas")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("class","mask")
+
+
+    var svg = d3.select("#chart")
+                .append("svg:svg")
+                .attr("width", width)
+                .attr("height", height);
+
+
+    var map = L.mapbox.map('map', 'examples.map-y7l23tes');
+
+    var dateCursor = svg.append("g").attr("class","dateCursor");
+
+    dateCursor.append('line')
+        .attr("class","back")
+        .attr("x1", 0)
+        .attr("x2", width)
+        .attr("y1", 0)
+        .attr("y2", 0);
+
+    dateCursor.append('line')
+        .attr("class","line")
+        .attr("x1", 0)
+        .attr("x2", width-80)
+        .attr("y1", 0)
+        .attr("y2", 0);
+
+    dateCursor.append("text")
+      .attr("class", "label")
+      .attr("x", width-30)
+      .attr("y",3)
+      .style("text-anchor", "end")
+      .text("now");
+
+    var geoCursor = svg.append("g").attr("class","geoCursor");
+
+    geoCursor.append('line')
+        .attr("class","line")
+        .attr("x1", 0)
+        .attr("x2", 0)
+        .attr("y1", 0)
+        .attr("y2", height);
+
+    geoCursor.append('line')
+        .attr("class","back")
+        .attr("x1", 0)
+        .attr("x2", 0)
+        .attr("y1", 0)
+        .attr("y2", height);
+
+    var dateFormat = d3.time.format("%H:%M:%S");
+      
+
+      //d3.tsv("data/codered-july.table_FILTER_de.txt", function(d){
+      d3.tsv("data/codered-july.table_FILTER_us.txt", function(d){
+
+        d.start_time*=1;
+        d.end_time  *=1;
+        d.duration = d.end_time- d.start_time;
+        d.latitude  *=1;
+        d.longitude  *=1;
+        d.date = new Date(d.start_time*1000);
+
+        //d.geo = d.latitude + d.longitude;
+        d.geo = d.latitude;
+
+        if(d.geo!=0){
+          return d;
+        }
+
+      },function(data){
+        console.log(data[0],data.length);
+
+        //WebGL2D.enable(canvas.node());
+        var context = canvas.node().getContext("2d");
+
+        var scaleDuration = d3.scale.linear()
+          .domain([0, d3.max(data, function(d) { return d.duration; })])
+          .range([0, 5]);
+
+        var time = {};
+        time.max = d3.max(data, function(d) { return d.date; });
+        time.min = d3.min(data, function(d) { return d.date; });
+        time.scale = d3.time.scale()
+          .domain([time.min, time.max])
+          .range([0, height]);
+        console.log(time);
+
+        var geo = {lat:{},lon:{}};
+        geo.lat.min = d3.min(data, function(d) { return d.latitude; });
+        geo.lat.max = d3.max(data, function(d) { return d.latitude; });
+        geo.lat.scale = d3.scale.sqrt()
+          .domain([ geo.lat.min, geo.lat.max ])
+          .range([0,width]);
+
+        geo.lon.min = d3.min(data, function(d) { return d.longitude; });
+        geo.lon.max = d3.max(data, function(d) { return d.longitude; });
+        geo.lon.scale = d3.scale.sqrt()
+          .domain([ geo.lon.min, geo.lon.max ])
+          .range([0,width]);
+
+        var trace = {};
+        var pushTrace = function(x,y,d){
+          if(!trace[x]) trace[x] = {};
+          if(!trace[x][y]) trace[x][y] = d;
+        };
+
+        map.fitBounds([
+            [geo.lat.min, geo.lon.min],
+            [geo.lat.min, geo.lon.max]
+        ]);
+
+        var yAxis = d3.svg.axis()
+                    .orient("right")
+                    .scale(time.scale)
+                    .tickSize(40)
+                    .ticks(d3.time.minutes, 60)
+                    .tickFormat(d3.time.format("%H:%M:%S"));
+                    //.tickSubdivide(true);
+
+        svg.append("g")
+          .attr("transform", "translate("+(width-115)+",0)")
+          .attr("class","axis")
+          .call(yAxis)
+
+        svg.on('mousemove',function(e){
+          var mouse =  d3.mouse(this);
+          var pos = geo.lat.scale.invert(mouse[0]);
+          var now = time.scale.invert(mouse[1]);
+
+          dateCursor
+            .attr("transform", "translate(0,"+mouse[1]+")")
+            .select(".label")
+            .text(dateFormat(now));
+
+          geoCursor
+            .attr("transform", "translate("+mouse[0]+",0)")
+          //console.log(mouse,time,geo);
+          // if(trace[ d3.event.offsetX ] && trace[ d3.event.offsetX ][ d3.event.offsetY ]){
+          //   var d = trace[ d3.event.offsetX ][ d3.event.offsetY ];
+          //   console.log(d);
+          // }
+        });
+
+        //context.fillStyle = "black";
+        context.rect(0, 0, width, height);
+        context.fill();
+
+        context.strokeStyle = "rgba(200,255,255,.6)";
+        
+        data.forEach(function(d){
+          var y = parseInt(time.scale(d.date));
+          var x = parseInt(geo.lon.scale(d.longitude));
+          var size = scaleDuration(d.duration);
+          context.beginPath();
+          context.moveTo(x, y);
+          context.lineTo(x+size, y);
+          context.stroke();
+
+          pushTrace(x,y,d);
+
+        });
+        console.log(trace);
+        
+        var saveCanvas = function(){
+          window.location.href=canvas.node()
+          .toDataURL("image/png")
+          .replace("image/png", "image/octet-stream");
+        }
+      });
+
+      
+    </script>
+  </body>
+</html>
+
+
