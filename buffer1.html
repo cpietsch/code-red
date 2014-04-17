@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>codered three</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <style>
+      body {
+        background-color: #000000;
+        margin: 0px;
+        overflow: hidden;
+        font-family:Monospace;
+        font-size:13px;
+        text-align:center;
+        font-weight: bold;
+        text-align:center;
+      }
+
+      a {
+        color:#0078ff;
+      }
+
+      #info {
+        color: #fff;
+        position: absolute;
+        top: 0px; width: 100%;
+        padding: 5px;
+        z-index: 100;
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <div id="info">
+    CODE RED THREE.JS
+    </div>
+
+    <script src="lib/three.min.js"></script>
+    <script src="lib/three/Detector.js"></script>
+    <script src="lib/three/libs/stats.min.js"></script>
+    <script type="text/javascript" src="lib/d3.v3.min.js"></script>
+
+    <script src="lib/OrbitControls.js"></script>
+    <script src="lib/THREEx.KeyboardState.js"></script>
+    <script src="lib/THREEx.FullScreen.js"></script>
+    <script src="lib/THREEx.WindowResize.js"></script>
+
+    <script type='text/javascript' src='lib/DAT.GUI.min.js'></script>
+
+    <script type="x-shader/x-vertex" id="vertexshader">
+
+      attribute float size;
+      attribute vec3 customColor;
+
+      varying vec3 vColor;
+
+      void main() {
+
+        vColor = customColor;
+
+        vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+
+        //gl_PointSize = size;
+        gl_PointSize = size * ( 300.0 / length( mvPosition.xyz ) );
+
+        gl_Position = projectionMatrix * mvPosition;
+
+      }
+
+    </script>
+
+    <script type="x-shader/x-fragment" id="fragmentshader">
+
+      uniform vec3 color;
+      uniform sampler2D texture;
+
+      varying vec3 vColor;
+
+      void main() {
+
+        gl_FragColor = vec4( color * vColor, 1.0 );
+        gl_FragColor = gl_FragColor * texture2D( texture, gl_PointCoord );
+
+      }
+
+    </script>
+
+
+    <script>
+
+  
+
+      if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+
+      var attributes = {
+
+        size: { type: 'f', value: null },
+        customColor: { type: 'c', value: null }
+
+      };
+
+      uniforms = {
+
+        color:     { type: "c", value: new THREE.Color( 0xffffff ) }
+       
+      };
+
+      var shaderMaterial = new THREE.ShaderMaterial( {
+
+        uniforms:     uniforms,
+        attributes:     attributes,
+        vertexShader:   document.getElementById( 'vertexshader' ).textContent,
+        fragmentShader: document.getElementById( 'fragmentshader' ).textContent,
+
+        blending:     THREE.AdditiveBlending,
+        depthTest:    false,
+        transparent:  true
+
+      });
+
+      var container, stats;
+      var camera, 
+      scene, 
+      renderer, 
+      particles, 
+      geometry, 
+      particleMaterial, 
+      parameters, 
+      i, 
+      h, 
+      color;
+
+      var uniforms, geometry, values_size;
+
+      var mouseX = 0, mouseY = 0;
+      var fov = 70;
+      var targetRotation = 0;
+      var targetRotationOnMouseDown = 0;
+      var mouseYOnMouseDown = 0;
+
+      var windowHalfX = window.innerWidth / 2;
+      var windowHalfY = window.innerHeight / 2;
+
+      var width = 1000,
+          height = 2000;
+
+      var time = {};
+      var geo = {};
+      var scale;
+      var data;
+
+      var keyboard = new THREEx.KeyboardState();
+      var parameters,controls;
+      var gui;
+
+      //d3.tsv("data/codered-july.table.txt", function(d){
+      d3.tsv("data/codered-july.table_FILTER_de.txt", function(d){
+
+        d.start_time*=1;
+        d.end_time  *=1;
+        d.duration = d.end_time- d.start_time;
+        d.latitude  *=1;
+        d.longitude  *=1;
+        d.date = new Date(d.start_time*1000);
+
+        //d.geo = d.latitude + d.longitude;
+        d.geo = d.latitude;
+
+        if(d.geo!=0){ return d; }
+
+      },function(d){
+
+        data = d;
+       
+        init();
+        animate();
+
+      });
+
+
+      function init() {
+
+        time.max = d3.max(data, function(d) { return d.start_time; });
+        time.min = d3.min(data, function(d) { return d.start_time; });
+        time.scale = scaleTime = d3.scale.linear()
+          .domain([time.min, time.max])
+          .range([0, height]);
+
+        geo.min = d3.min(data, function(d) { return d.geo; });
+        geo.max = d3.max(data, function(d) { return d.geo; });
+        geo.scale = d3.scale.sqrt()
+          .domain([ geo.min, geo.max ])
+          .range([0,width]);
+
+        scale = d3.scale.linear()
+          .domain([0, d3.max(data, function(d) { return d.duration; })])
+          .range([0, -1000]);
+
+
+        container = document.createElement( 'div' );
+        document.body.appendChild( container );
+
+        scene = new THREE.Scene();
+
+        camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 20000 );
+        camera.position.set(0,150,400);
+        camera.lookAt(scene.position);  
+
+
+        //scene.fog = new THREE.FogExp2( 0x000000, 0.00007 );
+
+        geometry = new THREE.BufferGeometry();
+        geometry.addAttribute( 'position', Float32Array, particles, 3 );
+        geometry.addAttribute( 'customColor', Float32Array, particles, 3 );
+        geometry.addAttribute( 'size', Float32Array, particles, 1 );
+        geometry.attributes.size.dynamic = true;
+
+        values_size = geometry.attributes.size.array;
+        var positions = geometry.attributes.position.array;
+        var values_color = geometry.attributes.customColor.array;
+
+        var color = new THREE.Color( 0xffaa00 );
+        particles = new THREE.ParticleSystem( geometry, shaderMaterial );
+
+        data.forEach(function(d,v){
+
+          values_size[ v ] = 10;
+
+          positions[ v * 3 + 0 ] = parseInt(geo.scale(d.geo)) - width/2;
+          positions[ v * 3 + 1 ] = parseInt(time.scale(d.start_time)) - height/2;
+          positions[ v * 3 + 2 ] = scale(d.duration);
+
+
+          values_color[ v * 3 + 0 ] = color.r;
+          values_color[ v * 3 + 1 ] = color.g;
+          values_color[ v * 3 + 2 ] = color.b;
+
+
+        });
+
+        console.log(geometry)
+
+        
+        scene.add( particles );
+        
+
+        renderer = new THREE.WebGLRenderer({ antialias: false });
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        container.appendChild( renderer.domElement );
+
+        THREEx.WindowResize(renderer, camera);
+
+        controls = new THREE.OrbitControls( camera, renderer.domElement );
+
+        var axes = new THREE.AxisHelper();
+          scene.add(axes);
+
+        stats = new Stats();
+        stats.domElement.style.position = 'absolute';
+        stats.domElement.style.top = '0px';
+        container.appendChild( stats.domElement );
+
+
+
+      }
+
+
+      function animate() {
+
+        requestAnimationFrame( animate );
+
+        render();
+        stats.update();
+
+      }
+
+      function render() {
+
+        geometry.attributes.size.needsUpdate = true;
+        // camera.position.x += ( mouseX - camera.position.x ) * 0.05;
+        // camera.position.y += ( - mouseY - camera.position.y ) * 0.05;
+
+        //particles.rotation.x += ( targetRotation - particles.rotation.x ) * 0.05;
+
+        camera.lookAt( scene.position );
+        
+        renderer.render( scene, camera );
+
+      }
+
+
+    </script>
+  </body>
+</html>
